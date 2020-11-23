@@ -44,7 +44,7 @@
 - (void)testGenerateTokenWithBinding {
     CKCTokenResult *res = [CKCToken generateWithBinding:(bindingParams)];
 
-    XCTAssertNil(res.token, @"pointer:%p", res.token);
+    XCTAssertNotNil(res.token, @"pointer:%p", res.token);
 }
 
 - (void)testGenerateTokenWithoutBindingID {
