@@ -48,15 +48,15 @@
     NSString *fullYear = cardView.getFullYearFromExpirationDate;
     NSString *month = cardView.getMonthFromExpirationDate;
     NSString *expirationDate = [NSString stringWithFormat:@"%@%@", fullYear, month];
-    
+
     NSString *cardData = [NSString stringWithFormat:@"%@/%@/%@/%@/%@", timeStamp, uuid, cardNumber, secureCode, expirationDate];
-    
+  
     if (CardKConfig.shared.mdOrder != nil) {
       cardData = [NSString stringWithFormat:@"%@/%@", cardData, CardKConfig.shared.mdOrder];
     } else {
       cardData = [NSString stringWithFormat:@"%@//", cardData];
     }
-
+  
     NSString *seToken = [RSA encryptString:cardData publicKey: CardKConfig.shared.pubKey];
     
     return seToken;

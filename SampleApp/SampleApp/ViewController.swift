@@ -71,11 +71,11 @@ class ViewController: UITableViewController {
     CardKConfig.shared.bindingCVCRequired = true;
     CardKConfig.shared.bindings = self._fetchBindingCards();
     CardKConfig.shared.isTestMod = true;
-    CardKConfig.shared.mdOrder = "mdOrder";
+    CardKConfig.shared.mdOrder = "ae0adc7d-ef2d-7a2c-96c5-e8f61917ef58";
     CardKConfig.shared.mrBinApiURL = "https://mrbin.io/bins/display";
     CardKConfig.shared.mrBinURL = "https://mrbin.io/bins/";
     CardKConfig.shared.bindingsSectionTitle = "Your cards";
-    
+    CardKConfig.shared.pubKey = publicKey;
     let controller = CardKViewController();
     controller.cKitDelegate = self;
     

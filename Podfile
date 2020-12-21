@@ -5,5 +5,5 @@ target 'SampleApp' do
 
   use_frameworks!
   pod 'CardIO'
-
+  pod 'ObjectMapper'
 end

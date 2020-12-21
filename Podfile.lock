@@ -1,16 +1,21 @@
 PODS:
   - CardIO (5.4.1)
+  - ObjectMapper (4.2.0)
 
 DEPENDENCIES:
   - CardIO
+  - ObjectMapper
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - CardIO
+  trunk:
+    - ObjectMapper
 
 SPEC CHECKSUMS:
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
 
-PODFILE CHECKSUM: aacc985cf4680d07e570fba5c360bc7cbc6d6ce4
+PODFILE CHECKSUM: 2e79e31608a7f83b1e36191cf291fe5d91d9e1ad
 
 COCOAPODS: 1.8.4
