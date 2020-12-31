@@ -43,6 +43,7 @@ struct SectionItem {
     case navSystemTheme
     case language
     case paymentView
+    case threeDS
   }
 }
 
@@ -320,6 +321,12 @@ class ViewController: UITableViewController {
   
     self.navigationController?.pushViewController(controller, animated: true)
   }
+    
+  func _open3DSView() {
+    let controller = ThreeDS2ViewController();
+
+    self.navigationController?.pushViewController(controller, animated: true)
+  }
   
   func _callFunctionByKindOfButton(kind: SectionItem.Kind, language: String) {
     switch kind {
@@ -332,6 +339,7 @@ class ViewController: UITableViewController {
     case .navSystemTheme: _openSystemUINavigation()
     case .language: _openWitchChooseLanguage(language: language)
     case .paymentView: _openPaymentView()
+    case .threeDS: _open3DSView()
     }
   }
   
@@ -352,6 +360,11 @@ class ViewController: UITableViewController {
     Section(title: "CardKPaymentView", items: [
       SectionItem(title: "Apple Pay", kind: .paymentView, isShowChevron: true, language: ""),
     ]),
+    
+    Section(title: "ThreeDSSample", items: [
+      SectionItem(title: "ThreeDS Sample", kind: .threeDS, isShowChevron: true, language: ""),
+    ]),
+    
     
     Section(title: "Localization", items: [
       SectionItem(title: "English - en", kind: .language, isShowChevron: false, language: "en"),

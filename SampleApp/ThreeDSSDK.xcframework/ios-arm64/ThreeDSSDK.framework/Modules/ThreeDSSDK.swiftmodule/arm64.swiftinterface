@@ -1,0 +1,307 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.1 effective-4.2 (swiftlang-1200.0.41 clang-1200.0.32.8)
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -O -module-name ThreeDSSDK
+import AdSupport
+import CommonCrypto
+import Compression
+import CoreLocation
+import Foundation
+import Security
+import Swift
+@_exported import ThreeDSSDK
+import UIKit.UIImage
+import UIKit
+public struct AuthenticationRequestParameters {
+}
+extension AuthenticationRequestParameters {
+  public init(_ sdkTransactionID: Swift.String, _ deviceData: Swift.String, _ sdkEphemeralPublicKey: Swift.String, _ sdkAppID: Swift.String, _ sdkReferenceNumber: Swift.String, _ messageVersion: Swift.String) throws
+  public func getDeviceData() -> Swift.String
+  public func getSDKTransactionID() -> Swift.String
+  public func getSDKAppID() -> Swift.String
+  public func getSDKReferenceNumber() -> Swift.String
+  public func getSDKEphemeralPublicKey() -> Swift.String
+  public func getMessageVersion() -> Swift.String
+}
+@_hasMissingDesignatedInitializers final public class ChallengeParameters {
+  convenience public init()
+  @objc deinit
+}
+extension ChallengeParameters {
+  final public func set3DSServerTransactionID(_ transactionID: Swift.String)
+  final public func setAcsTransactionID(_ transactionID: Swift.String)
+  final public func setAcsRefNumber(_ refNum: Swift.String)
+  final public func setAcsSignedContent(_ content: Swift.String)
+  final public func get3DSServerTransactionID() -> Swift.String
+  final public func getAcsTransactionID() -> Swift.String
+  final public func getAcsRefNumber() -> Swift.String
+  final public func getAcsSignedContent() -> Swift.String
+  final public func getThreeDSRequestorAppURL() -> Swift.String
+  final public func setThreeDSRequestorAppURL(_ threeDSRequestorAppURL: Swift.String)
+}
+@_hasMissingDesignatedInitializers final public class TextBoxCustomization : ThreeDSSDK.Customization {
+  @objc deinit
+}
+extension TextBoxCustomization {
+  convenience public init()
+  final public func getBorderWidth() -> Swift.Int
+  final public func setBorderWidth(_ width: Swift.Int) throws
+  final public func getBorderColor() -> Swift.String
+  final public func setBorderColor(_ hexColorCode: Swift.String) throws
+  final public func getCornerRadius() -> Swift.Int
+  final public func setCornerRadius(_ radius: Swift.Int) throws
+}
+public protocol ProgressDialog : AnyObject {
+  func show()
+  func close()
+}
+public enum ButtonType : Swift.String {
+  case submit
+  case `continue`
+  case next
+  case cancel
+  case resend
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct RuntimeErrorEvent : Swift.Error {
+  public let errorCode: Swift.String?
+  public let errorMessage: Swift.String
+}
+extension RuntimeErrorEvent {
+  public init(_ errorMessage: Swift.String, _ errorCode: Swift.String? = nil)
+  public func getErrorCode() -> Swift.String?
+  public func getErrorMessage() -> Swift.String
+}
+public protocol ChallengeStatusReceiver : AnyObject {
+  func completed(completionEvent: ThreeDSSDK.CompletionEvent)
+  func cancelled()
+  func timedout()
+  func protocolError(protocolErrorEvent: ThreeDSSDK.ProtocolErrorEvent)
+  func runtimeError(runtimeErrorEvent: ThreeDSSDK.RuntimeErrorEvent)
+}
+public struct ErrorMessage {
+}
+extension ErrorMessage {
+  public init(_ transactionID: Swift.String, _ errorCode: Swift.String, _ errorDescription: Swift.String, _ errorDetail: Swift.String)
+  public func getTransactionID() -> Swift.String
+  public func getErrorCode() -> Swift.String
+  public func getErrorDescription() -> Swift.String
+  public func getErrorDetails() -> Swift.String
+}
+public enum ThreeDS2Error : Swift.Error {
+  case invalidInput(Swift.String)
+  case sdkAlreadyInitialized
+  case sdkNotInitialized
+  case sdkRuntime(message: Swift.String, errorCode: Swift.String?)
+  public var localizedDescription: Swift.String {
+    get
+  }
+}
+public enum SecurityWarningIdentifier : Swift.String {
+  case SW01
+  case SW02
+  case SW03
+  case SW04
+  case SW05
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension SecurityWarningIdentifier : Swift.CodingKey, Swift.Encodable {
+  public var stringValue: Swift.String {
+    get
+  }
+  public init?(stringValue: Swift.String)
+  public var intValue: Swift.Int? {
+    get
+  }
+  public init?(intValue: Swift.Int)
+}
+final public class Ecom3DS2Service {
+  public init()
+  @objc deinit
+}
+extension Ecom3DS2Service : ThreeDSSDK.ThreeDS2Service {
+  final public func initialize(configParameters: ThreeDSSDK.ConfigParameters, locale: Swift.String?, uiCustomization: ThreeDSSDK.UiCustomization?) throws
+  final public func createTransaction(directoryServerID: Swift.String, messageVersion: Swift.String?, publicKeyBase64: Swift.String, rootCertificateBase64: Swift.String, logoBase64: Swift.String) throws -> ThreeDSSDK.Transaction
+  final public func cleanup() throws
+  final public func getSDKVersion() throws -> Swift.String
+  final public func getWarnings() throws -> [ThreeDSSDK.Warning]
+}
+@_hasMissingDesignatedInitializers final public class ButtonCustomization : ThreeDSSDK.Customization {
+  @objc deinit
+}
+extension ButtonCustomization {
+  convenience public init()
+  final public func getBackgroundColor() -> Swift.String
+  final public func setBackgroundColor(_ hexColorCode: Swift.String) throws
+  final public func getCornerRadius() -> Swift.Int
+  final public func setCornerRadius(_ radius: Swift.Int) throws
+}
+public struct Warning {
+}
+extension Warning {
+  public init(_ id: Swift.String, _ message: Swift.String, _ severity: ThreeDSSDK.Severity)
+  public func getID() -> Swift.String
+  public func getMessage() -> Swift.String
+  public func getSeverity() -> ThreeDSSDK.Severity
+}
+@_hasMissingDesignatedInitializers final public class ToolbarCustomization : ThreeDSSDK.Customization {
+  convenience public init()
+  @objc deinit
+}
+extension ToolbarCustomization {
+  final public func getBackgroundColor() -> Swift.String
+  final public func setBackgroundColor(_ hexColorCode: Swift.String) throws
+  final public func getHeaderText() -> Swift.String
+  final public func setHeaderText(_ text: Swift.String) throws
+  final public func getButtonText() -> Swift.String
+  final public func setButtonText(_ text: Swift.String) throws
+}
+final public class ConfigParameters {
+  public init()
+  final public func addParam(_ group: Swift.String?, _ paramName: Swift.String, _ paramValue: Swift.String) throws
+  final public func getParamValue(_ group: Swift.String?, _ paramName: Swift.String) throws -> Swift.String?
+  @discardableResult
+  final public func removeParam(_ group: Swift.String?, _ paramName: Swift.String) throws -> Swift.String
+  @objc deinit
+}
+extension ConfigParameters {
+  public enum Key : Swift.String {
+    case integrityReferenceValue
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.String)
+  }
+}
+public protocol ThreeDS2Service : AnyObject {
+  func initialize(configParameters: ThreeDSSDK.ConfigParameters, locale: Swift.String?, uiCustomization: ThreeDSSDK.UiCustomization?) throws
+  func createTransaction(directoryServerID: Swift.String, messageVersion: Swift.String?, publicKeyBase64: Swift.String, rootCertificateBase64: Swift.String, logoBase64: Swift.String) throws -> ThreeDSSDK.Transaction
+  func cleanup() throws
+  func getSDKVersion() throws -> Swift.String
+  func getWarnings() throws -> [ThreeDSSDK.Warning]
+}
+@objc public protocol GenericChallengeProtocol {
+  @objc func clickVerifyButton()
+  @objc func getChallengeType() -> Swift.String
+  @objc func clickCancelButton()
+  @objc func setChallengeProtocol(sdkChallengeProtocol: ThreeDSSDK.SDKChallengeProtocol)
+  @objc func expandTextsBeforeScreenshot()
+  @objc func selectWhitelistChecked(checked: Swift.Bool)
+}
+@objc public protocol MultiSelectChallengeProtocol : ThreeDSSDK.GenericChallengeProtocol {
+  @objc func selectIndex(_ index: Swift.Int)
+}
+@objc public protocol OutOfBandChallengeProtocol : ThreeDSSDK.GenericChallengeProtocol {
+}
+@objc public protocol SDKChallengeProtocol {
+  @objc func handleChallenge()
+}
+@objc public protocol SingleSelectorChallengeProtocol : ThreeDSSDK.GenericChallengeProtocol {
+  @objc func selectObject(_ index: Swift.Int)
+}
+@objc public protocol TextChallengeProtocol : ThreeDSSDK.GenericChallengeProtocol {
+  @objc func typeTextChallengeValue(_ value: Swift.String)
+}
+@objc public protocol WebChallengeProtocol : ThreeDSSDK.GenericChallengeProtocol {
+  @objc func getWebView() -> UIKit.UIWebView
+}
+public protocol Transaction : AnyObject {
+  func getAuthenticationRequestParameters() throws -> ThreeDSSDK.AuthenticationRequestParameters
+  func doChallenge(challengeParameters: ThreeDSSDK.ChallengeParameters, challengeStatusReceiver: ThreeDSSDK.ChallengeStatusReceiver, timeOut: Swift.Int) throws
+  func getProgressView() throws -> ThreeDSSDK.ProgressDialog
+  func close() throws
+}
+final public class UiCustomization {
+  public init()
+  @objc deinit
+}
+extension UiCustomization {
+  final public func setButtonCustomization(_ buttonCustomization: ThreeDSSDK.ButtonCustomization, _ buttonType: ThreeDSSDK.ButtonType) throws
+  final public func setButtonCustomization(_ buttonCustomization: ThreeDSSDK.ButtonCustomization, _ buttonType: Swift.String) throws
+  final public func getToolbarCustomization() -> ThreeDSSDK.ToolbarCustomization?
+  final public func setToolbarCustomization(_ toolbarCustomization: ThreeDSSDK.ToolbarCustomization)
+  final public func getLabelCustomization() -> ThreeDSSDK.LabelCustomization?
+  final public func setLabelCustomization(_ labelCustomization: ThreeDSSDK.LabelCustomization)
+  final public func getTextBoxCustomization() -> ThreeDSSDK.TextBoxCustomization?
+  final public func setTextBoxCustomization(_ textBoxCustomization: ThreeDSSDK.TextBoxCustomization)
+  final public func getButtonCustomization(_ buttonType: ThreeDSSDK.ButtonType) throws -> ThreeDSSDK.ButtonCustomization?
+  final public func getButtonCustomization(_ buttonType: Swift.String) throws -> ThreeDSSDK.ButtonCustomization?
+}
+@_hasMissingDesignatedInitializers final public class LabelCustomization : ThreeDSSDK.Customization {
+  convenience public init()
+  @objc deinit
+}
+extension LabelCustomization {
+  final public func getHeadingTextColor() -> Swift.String
+  final public func setHeadingTextColor(_ hexColorCode: Swift.String) throws
+  final public func getHeadingTextFontName() -> Swift.String
+  final public func setHeadingTextFontName(_ fontName: Swift.String) throws
+  final public func getHeadingTextFontSize() -> Swift.Int
+  final public func setHeadingTextFontSize(_ size: Swift.Int) throws
+}
+public struct ProtocolErrorEvent {
+}
+extension ProtocolErrorEvent {
+  public init(_ sdkTransactionID: Swift.String, _ errorMessage: ThreeDSSDK.ErrorMessage)
+  public func getSDKTransactionID() -> Swift.String
+  public func getErrorMessage() -> ThreeDSSDK.ErrorMessage
+}
+public struct CompletionEvent {
+}
+extension CompletionEvent {
+  public init(_ sdkTransactionID: Swift.String, _ transactionStatus: Swift.String)
+  public func getSDKTransactionID() -> Swift.String
+  public func getTransactionStatus() -> Swift.String
+}
+public enum Severity : Swift.Int {
+  case low
+  case medium
+  case high
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum HashAlgorithm : Swift.String {
+  case sha256
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class Customization {
+  @objc deinit
+}
+extension Customization {
+  public func getTextFontName() -> Swift.String
+  public func setTextFontName(_ name: Swift.String) throws
+  public func getTextColor() -> Swift.String
+  public func setTextColor(_ hexColorCode: Swift.String) throws
+  public func getTextFontSize() -> Swift.Int
+  public func setTextFontSize(_ size: Swift.Int) throws
+}
+extension ThreeDSSDK.ButtonType : Swift.Equatable {}
+extension ThreeDSSDK.ButtonType : Swift.Hashable {}
+extension ThreeDSSDK.ButtonType : Swift.RawRepresentable {}
+extension ThreeDSSDK.SecurityWarningIdentifier : Swift.Equatable {}
+extension ThreeDSSDK.SecurityWarningIdentifier : Swift.Hashable {}
+extension ThreeDSSDK.SecurityWarningIdentifier : Swift.RawRepresentable {}
+extension ThreeDSSDK.ConfigParameters.Key : Swift.Equatable {}
+extension ThreeDSSDK.ConfigParameters.Key : Swift.Hashable {}
+extension ThreeDSSDK.ConfigParameters.Key : Swift.RawRepresentable {}
+extension ThreeDSSDK.Severity : Swift.Equatable {}
+extension ThreeDSSDK.Severity : Swift.Hashable {}
+extension ThreeDSSDK.Severity : Swift.RawRepresentable {}
+extension ThreeDSSDK.HashAlgorithm : Swift.Equatable {}
+extension ThreeDSSDK.HashAlgorithm : Swift.Hashable {}
+extension ThreeDSSDK.HashAlgorithm : Swift.RawRepresentable {}

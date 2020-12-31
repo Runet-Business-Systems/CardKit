@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,13 @@
 		92429131255D60E100378C68 /* CardKitCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920A449A255D59C4005010F3 /* CardKitCore.framework */; };
 		92429132255D60E100378C68 /* CardKitCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 920A449A255D59C4005010F3 /* CardKitCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9262A63D24C5CAE600042DDC /* CardKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 9262A63C24C5CAE600042DDC /* CardKit.podspec */; };
+		927F3701259CA52A0019DE21 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3700259CA5290019DE21 /* TransactionManager.swift */; };
+		927F3704259CA54E0019DE21 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3703259CA54E0019DE21 /* Log.swift */; };
+		927F3707259CA5600019DE21 /* ARes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3706259CA5600019DE21 /* ARes.swift */; };
+		927F370A259CA5780019DE21 /* LogDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3709259CA5780019DE21 /* LogDelegate.swift */; };
+		927F370D259CA5970019DE21 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F370C259CA5970019DE21 /* API.swift */; };
+		927F3711259CA6E80019DE21 /* ThreeDS2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3710259CA6E80019DE21 /* ThreeDS2ViewController.swift */; };
+		927F375F259DE51B0019DE21 /* ThreeDSSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927F375E259DE51B0019DE21 /* ThreeDSSDK.xcframework */; };
 		92BD9229255D458B001E1ECF /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BD9228255D458B001E1ECF /* CardKit.framework */; };
 		92E0D90E24AF4EB000F7846E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92E0D91024AF4EB000F7846E /* Localizable.strings */; };
 		D245AB97231C444600369747 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D245AB96231C444600369747 /* AppDelegate.swift */; };
@@ -64,6 +71,13 @@
 		9234CC57247E90AB009E3034 /* SampleApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SampleApp.entitlements; sourceTree = "<group>"; };
 		9234CC5C247FDA8F009E3034 /* SampleCardKPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCardKPaymentView.swift; sourceTree = "<group>"; };
 		9262A63C24C5CAE600042DDC /* CardKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CardKit.podspec; path = ../CardKit.podspec; sourceTree = "<group>"; };
+		927F3700259CA5290019DE21 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
+		927F3703259CA54E0019DE21 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		927F3706259CA5600019DE21 /* ARes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARes.swift; sourceTree = "<group>"; };
+		927F3709259CA5780019DE21 /* LogDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDelegate.swift; sourceTree = "<group>"; };
+		927F370C259CA5970019DE21 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		927F3710259CA6E80019DE21 /* ThreeDS2ViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ThreeDS2ViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		927F375E259DE51B0019DE21 /* ThreeDSSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThreeDSSDK.xcframework; path = "../../threeds2-sdk-ios/build/ThreeDSSDK.xcframework"; sourceTree = "<group>"; };
 		92BD9224255D4587001E1ECF /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92BD9228255D458B001E1ECF /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92E0D90224AF3D6800F7846E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -71,7 +85,7 @@
 		92E0D91124AF4EC300F7846E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D245AB93231C444600369747 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D245AB96231C444600369747 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D245AB98231C444600369747 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D245AB98231C444600369747 /* ViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D245AB9D231C444700369747 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D245ABA2231C444700369747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D245ABA7231C444700369747 /* SampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +104,7 @@
 				92BD9229255D458B001E1ECF /* CardKit.framework in Frameworks */,
 				920A4309255D4826005010F3 /* CardKit.framework in Frameworks */,
 				92429131255D60E100378C68 /* CardKitCore.framework in Frameworks */,
+				927F375F259DE51B0019DE21 /* ThreeDSSDK.xcframework in Frameworks */,
 				920A4322255D48D0005010F3 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,6 +129,19 @@
 			path = ../Pods;
 			sourceTree = "<group>";
 		};
+		927F370F259CA6A20019DE21 /* 3DS2 */ = {
+			isa = PBXGroup;
+			children = (
+				927F3700259CA5290019DE21 /* TransactionManager.swift */,
+				927F3703259CA54E0019DE21 /* Log.swift */,
+				927F3709259CA5780019DE21 /* LogDelegate.swift */,
+				927F3706259CA5600019DE21 /* ARes.swift */,
+				927F370C259CA5970019DE21 /* API.swift */,
+				927F3710259CA6E80019DE21 /* ThreeDS2ViewController.swift */,
+			);
+			path = 3DS2;
+			sourceTree = "<group>";
+		};
 		CA78FC61FEBF08E39AE4240A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +161,7 @@
 		D245AB8A231C444600369747 = {
 			isa = PBXGroup;
 			children = (
+				927F375E259DE51B0019DE21 /* ThreeDSSDK.xcframework */,
 				9262A63C24C5CAE600042DDC /* CardKit.podspec */,
 				9234CC55247D2157009E3034 /* bindings.json */,
 				D245ABB6231C445D00369747 /* CardKit.framework */,
@@ -163,6 +192,7 @@
 				D245AB9D231C444700369747 /* Assets.xcassets */,
 				D245AB9F231C444700369747 /* LaunchScreen.storyboard */,
 				D245ABA2231C444700369747 /* Info.plist */,
+				927F370F259CA6A20019DE21 /* 3DS2 */,
 				9234CC5C247FDA8F009E3034 /* SampleCardKPaymentView.swift */,
 				92E0D91024AF4EB000F7846E /* Localizable.strings */,
 			);
@@ -190,7 +220,7 @@
 				D245AB90231C444600369747 /* Frameworks */,
 				D245AB91231C444600369747 /* Resources */,
 				D245ABB9231C445D00369747 /* Embed Frameworks */,
-				F83C0075A840F590F467A8C2 /* [CP] Embed Pods Frameworks */,
+				CF27E85EE60A2679F556878E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -304,7 +334,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F83C0075A840F590F467A8C2 /* [CP] Embed Pods Frameworks */ = {
+		CF27E85EE60A2679F556878E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -328,9 +358,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				927F370A259CA5780019DE21 /* LogDelegate.swift in Sources */,
+				927F3707259CA5600019DE21 /* ARes.swift in Sources */,
+				927F3701259CA52A0019DE21 /* TransactionManager.swift in Sources */,
 				D245AB99231C444600369747 /* ViewController.swift in Sources */,
+				927F3704259CA54E0019DE21 /* Log.swift in Sources */,
 				9234CC5D247FDA8F009E3034 /* SampleCardKPaymentView.swift in Sources */,
+				927F370D259CA5970019DE21 /* API.swift in Sources */,
 				D245AB97231C444600369747 /* AppDelegate.swift in Sources */,
+				927F3711259CA6E80019DE21 /* ThreeDS2ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +461,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -481,7 +517,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -500,14 +536,14 @@
 				CODE_SIGN_ENTITLEMENTS = SampleApp/SampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = FD6ZML48V9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SampleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -532,14 +568,14 @@
 				CODE_SIGN_ENTITLEMENTS = SampleApp/SampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = FD6ZML48V9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SampleApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

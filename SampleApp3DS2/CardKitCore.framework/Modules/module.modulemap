@@ -1,6 +1,0 @@
-framework module CardKitCore {
-  umbrella header "CardKitCore.h"
-
-  export *
-  module * { export * }
-}
