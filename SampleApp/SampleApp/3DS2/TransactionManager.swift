@@ -15,7 +15,7 @@ public protocol TransactionManagerDelegate: class {
 }
 
 protocol AddLogDelegate: class {
-  func addLog(title: String, log: String) -> Void
+  func addLog(title: String, request: String, response: String, isReload: Bool) -> Void
 }
 
 public class TransactionManager: NSObject, ChallengeStatusReceiver {
@@ -169,15 +169,13 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
 //     */
     public func completed(completionEvent e: CompletionEvent) {
       let transactionStatus : String? = e.getTransactionStatus()
+      API.finishOrder(params: ThreeDS2ViewController.requestParams) { (data) in
+        self.delegate2?.addLog(title: "Finish order", request: String(describing: ThreeDS2ViewController.requestParams), response: String(describing: data), isReload: false)
 
-      delegate2?.addLog(title: "Request: Finish order", log: String(describing: ThreeDS2ViewController.requestParams))
-      API.finishOrder(params: ThreeDS2ViewController.requestParams) { [weak self] (data) in
-        self?.delegate2?.addLog(title: "Response: Finish order", log: String(describing: ThreeDS2ViewController.requestParams))
-
-        self?.delegate2?.addLog(title: "Request: fetchOrderStatus", log: String(describing: ThreeDS2ViewController.requestParams))
-        API.fetchOrderStatus(params: ThreeDS2ViewController.requestParams) { [weak self] (data) in
-          self?.delegate2?.addLog(title: "Response: fetchOrderStatus", log: String(describing: ThreeDS2ViewController.requestParams))
-          
+        API.fetchOrderStatus(params: ThreeDS2ViewController.requestParams) {(data) in
+            DispatchQueue.main.async {
+              self.delegate2?.addLog(title: "Fetch order status", request: String(describing: ThreeDS2ViewController.requestParams), response: String(describing: data), isReload: true)
+            }
         }
       }
         var strMessage : String = ""

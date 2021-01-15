@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0CDCE6C0041575C85620EDD3 /* Pods_SampleApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E0DAB803DD340C070713CD /* Pods_SampleApp.framework */; };
-		920A4309255D4826005010F3 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920A4308255D4826005010F3 /* CardKit.framework */; };
-		920A4322255D48D0005010F3 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D245ABB6231C445D00369747 /* CardKit.framework */; };
-		920A4323255D48D0005010F3 /* CardKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D245ABB6231C445D00369747 /* CardKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9234CC56247D2157009E3034 /* bindings.json in Resources */ = {isa = PBXBuildFile; fileRef = 9234CC55247D2157009E3034 /* bindings.json */; };
 		9234CC5D247FDA8F009E3034 /* SampleCardKPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234CC5C247FDA8F009E3034 /* SampleCardKPaymentView.swift */; };
-		92429131255D60E100378C68 /* CardKitCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920A449A255D59C4005010F3 /* CardKitCore.framework */; };
-		92429132255D60E100378C68 /* CardKitCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 920A449A255D59C4005010F3 /* CardKitCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9239893C25AC461800DB1682 /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9239890A25AC348100DB1682 /* CardKit.framework */; };
+		9239893D25AC461800DB1682 /* CardKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9239890A25AC348100DB1682 /* CardKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9245F89525B190FB0065AF9E /* ReqResDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245F89425B190FB0065AF9E /* ReqResDetailsController.swift */; };
+		9245F89925B194280065AF9E /* ThreeDSSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9245F89825B194280065AF9E /* ThreeDSSDK.xcframework */; };
 		9262A63D24C5CAE600042DDC /* CardKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 9262A63C24C5CAE600042DDC /* CardKit.podspec */; };
 		927F3701259CA52A0019DE21 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3700259CA5290019DE21 /* TransactionManager.swift */; };
 		927F3704259CA54E0019DE21 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3703259CA54E0019DE21 /* Log.swift */; };
@@ -22,8 +20,6 @@
 		927F370A259CA5780019DE21 /* LogDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3709259CA5780019DE21 /* LogDelegate.swift */; };
 		927F370D259CA5970019DE21 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F370C259CA5970019DE21 /* API.swift */; };
 		927F3711259CA6E80019DE21 /* ThreeDS2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927F3710259CA6E80019DE21 /* ThreeDS2ViewController.swift */; };
-		927F375F259DE51B0019DE21 /* ThreeDSSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927F375E259DE51B0019DE21 /* ThreeDSSDK.xcframework */; };
-		92BD9229255D458B001E1ECF /* CardKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BD9228255D458B001E1ECF /* CardKit.framework */; };
 		92E0D90E24AF4EB000F7846E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92E0D91024AF4EB000F7846E /* Localizable.strings */; };
 		D245AB97231C444600369747 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D245AB96231C444600369747 /* AppDelegate.swift */; };
 		D245AB99231C444600369747 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D245AB98231C444600369747 /* ViewController.swift */; };
@@ -43,14 +39,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D245ABB9231C445D00369747 /* Embed Frameworks */ = {
+		923988F025AC336100DB1682 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				92429132255D60E100378C68 /* CardKitCore.framework in Embed Frameworks */,
-				920A4323255D48D0005010F3 /* CardKit.framework in Embed Frameworks */,
+				9239893D25AC461800DB1682 /* CardKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,16 +55,13 @@
 /* Begin PBXFileReference section */
 		547AE47F17B068B145C06A2D /* Pods-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleApp.debug.xcconfig"; path = "Target Support Files/Pods-SampleApp/Pods-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		747C8D3F93DB09475EB327A9 /* Pods-SampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleApp.release.xcconfig"; path = "Target Support Files/Pods-SampleApp/Pods-SampleApp.release.xcconfig"; sourceTree = "<group>"; };
-		90E0DAB803DD340C070713CD /* Pods_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		920A4302255D47BF005010F3 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		920A4308255D4826005010F3 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		920A430C255D483F005010F3 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		920A432D255D48E9005010F3 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		920A449A255D59C4005010F3 /* CardKitCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKitCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		920A44F6255D5CF0005010F3 /* CardKitCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKitCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234CC55247D2157009E3034 /* bindings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bindings.json; sourceTree = "<group>"; };
 		9234CC57247E90AB009E3034 /* SampleApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SampleApp.entitlements; sourceTree = "<group>"; };
 		9234CC5C247FDA8F009E3034 /* SampleCardKPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCardKPaymentView.swift; sourceTree = "<group>"; };
+		9239890A25AC348100DB1682 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9239890E25AC348500DB1682 /* CardKitCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKitCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9245F89425B190FB0065AF9E /* ReqResDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqResDetailsController.swift; sourceTree = "<group>"; };
+		9245F89825B194280065AF9E /* ThreeDSSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThreeDSSDK.xcframework; path = "../../../threeds2-sdk-ios/build/ThreeDSSDK.xcframework"; sourceTree = "<group>"; };
 		9262A63C24C5CAE600042DDC /* CardKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CardKit.podspec; path = ../CardKit.podspec; sourceTree = "<group>"; };
 		927F3700259CA5290019DE21 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
 		927F3703259CA54E0019DE21 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -77,9 +69,6 @@
 		927F3709259CA5780019DE21 /* LogDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDelegate.swift; sourceTree = "<group>"; };
 		927F370C259CA5970019DE21 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		927F3710259CA6E80019DE21 /* ThreeDS2ViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ThreeDS2ViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
-		927F375E259DE51B0019DE21 /* ThreeDSSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThreeDSSDK.xcframework; path = "../../threeds2-sdk-ios/build/ThreeDSSDK.xcframework"; sourceTree = "<group>"; };
-		92BD9224255D4587001E1ECF /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		92BD9228255D458B001E1ECF /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92E0D90224AF3D6800F7846E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		92E0D90F24AF4EB000F7846E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		92E0D91124AF4EC300F7846E /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -91,7 +80,6 @@
 		D245ABA7231C444700369747 /* SampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D245ABAB231C444700369747 /* SampleAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleAppTests.swift; sourceTree = "<group>"; };
 		D245ABAD231C444700369747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D245ABB6231C445D00369747 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F44D11233898D900B6EEAB /* SampleApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SampleApp-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,12 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CDCE6C0041575C85620EDD3 /* Pods_SampleApp.framework in Frameworks */,
-				92BD9229255D458B001E1ECF /* CardKit.framework in Frameworks */,
-				920A4309255D4826005010F3 /* CardKit.framework in Frameworks */,
-				92429131255D60E100378C68 /* CardKitCore.framework in Frameworks */,
-				927F375F259DE51B0019DE21 /* ThreeDSSDK.xcframework in Frameworks */,
-				920A4322255D48D0005010F3 /* CardKit.framework in Frameworks */,
+				9245F89925B194280065AF9E /* ThreeDSSDK.xcframework in Frameworks */,
+				9239893C25AC461800DB1682 /* CardKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +113,14 @@
 			path = ../Pods;
 			sourceTree = "<group>";
 		};
+		9239897125AC517000DB1682 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9245F89825B194280065AF9E /* ThreeDSSDK.xcframework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
 		927F370F259CA6A20019DE21 /* 3DS2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +130,7 @@
 				927F3706259CA5600019DE21 /* ARes.swift */,
 				927F370C259CA5970019DE21 /* API.swift */,
 				927F3710259CA6E80019DE21 /* ThreeDS2ViewController.swift */,
+				9245F89425B190FB0065AF9E /* ReqResDetailsController.swift */,
 			);
 			path = 3DS2;
 			sourceTree = "<group>";
@@ -145,15 +138,8 @@
 		CA78FC61FEBF08E39AE4240A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				920A44F6255D5CF0005010F3 /* CardKitCore.framework */,
-				920A449A255D59C4005010F3 /* CardKitCore.framework */,
-				920A432D255D48E9005010F3 /* Core.framework */,
-				920A430C255D483F005010F3 /* Core.framework */,
-				920A4308255D4826005010F3 /* CardKit.framework */,
-				920A4302255D47BF005010F3 /* Core.framework */,
-				92BD9228255D458B001E1ECF /* CardKit.framework */,
-				92BD9224255D4587001E1ECF /* Core.framework */,
-				90E0DAB803DD340C070713CD /* Pods_SampleApp.framework */,
+				9239890E25AC348500DB1682 /* CardKitCore.framework */,
+				9239890A25AC348100DB1682 /* CardKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,10 +147,9 @@
 		D245AB8A231C444600369747 = {
 			isa = PBXGroup;
 			children = (
-				927F375E259DE51B0019DE21 /* ThreeDSSDK.xcframework */,
+				9239897125AC517000DB1682 /* Frameworks */,
 				9262A63C24C5CAE600042DDC /* CardKit.podspec */,
 				9234CC55247D2157009E3034 /* bindings.json */,
-				D245ABB6231C445D00369747 /* CardKit.framework */,
 				D245AB95231C444600369747 /* SampleApp */,
 				D245ABAA231C444700369747 /* SampleAppTests */,
 				D245AB94231C444600369747 /* Products */,
@@ -219,8 +204,8 @@
 				D245AB8F231C444600369747 /* Sources */,
 				D245AB90231C444600369747 /* Frameworks */,
 				D245AB91231C444600369747 /* Resources */,
-				D245ABB9231C445D00369747 /* Embed Frameworks */,
 				CF27E85EE60A2679F556878E /* [CP] Embed Pods Frameworks */,
+				923988F025AC336100DB1682 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -364,6 +349,7 @@
 				D245AB99231C444600369747 /* ViewController.swift in Sources */,
 				927F3704259CA54E0019DE21 /* Log.swift in Sources */,
 				9234CC5D247FDA8F009E3034 /* SampleCardKPaymentView.swift in Sources */,
+				9245F89525B190FB0065AF9E /* ReqResDetailsController.swift in Sources */,
 				927F370D259CA5970019DE21 /* API.swift in Sources */,
 				D245AB97231C444600369747 /* AppDelegate.swift in Sources */,
 				927F3711259CA6E80019DE21 /* ThreeDS2ViewController.swift in Sources */,
@@ -536,11 +522,12 @@
 				CODE_SIGN_ENTITLEMENTS = SampleApp/SampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = FD6ZML48V9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = SampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -568,11 +555,12 @@
 				CODE_SIGN_ENTITLEMENTS = SampleApp/SampleApp.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = FD6ZML48V9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = SampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

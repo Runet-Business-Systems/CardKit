@@ -29,6 +29,9 @@
 		924290DA255D5FF600378C68 /* CKCCardParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD9033255D241D001E1ECF /* CKCCardParams.m */; };
 		9242910C255D60AC00378C68 /* CKCToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD900F255D204A001E1ECF /* CKCToken.m */; };
 		92429134255D610700378C68 /* RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD8FA9255D1B3A001E1ECF /* RSA.m */; };
+		9245F8D125B19A0D0065AF9E /* Luhn.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD8F91255D1AE8001E1ECF /* Luhn.m */; };
+		9245F8D725B19A130065AF9E /* Luhn.h in Headers */ = {isa = PBXBuildFile; fileRef = 92BD8F92255D1AE9001E1ECF /* Luhn.h */; };
+		9245F8DD25B19A150065AF9E /* Luhn.h in Headers */ = {isa = PBXBuildFile; fileRef = 92BD8F92255D1AE9001E1ECF /* Luhn.h */; };
 		9248868E251885FB00CA81D5 /* SeTokenGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9248868C251885FB00CA81D5 /* SeTokenGenerator.h */; };
 		9248868F251885FB00CA81D5 /* SeTokenGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9248868D251885FB00CA81D5 /* SeTokenGenerator.m */; };
 		9292CED0255E5FB100053EC3 /* CKCPubKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD9007255D202E001E1ECF /* CKCPubKey.m */; };
@@ -370,6 +373,7 @@
 				920312EE255D664A006FBED7 /* CKCTokenResult.h in Headers */,
 				920312DC255D662A006FBED7 /* CKCCardParams.h in Headers */,
 				9292CED5255E611F00053EC3 /* CKCPubKey.h in Headers */,
+				9245F8D725B19A130065AF9E /* Luhn.h in Headers */,
 				92D85548255D63DA0002936B /* CardKitCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +391,7 @@
 				D2D0B367232122620007B3B9 /* PaymentSystemProvider.h in Headers */,
 				929BA32425591CFC00AB0526 /* TextField.h in Headers */,
 				9248868E251885FB00CA81D5 /* SeTokenGenerator.h in Headers */,
+				9245F8DD25B19A150065AF9E /* Luhn.h in Headers */,
 				D2690811231FB000001CB863 /* CardKCardView.h in Headers */,
 				92A1461A23435C6B002FBCC3 /* CardKConfig.h in Headers */,
 				9219F465232B8EF100841B98 /* CardKFooterView.h in Headers */,
@@ -642,6 +647,7 @@
 				92985C8A246BEE1E009B7392 /* CardKKindPaymentViewController.m in Sources */,
 				D2690812231FB000001CB863 /* CardKCardView.m in Sources */,
 				9248868F251885FB00CA81D5 /* SeTokenGenerator.m in Sources */,
+				9245F8D125B19A0D0065AF9E /* Luhn.m in Sources */,
 				D245ABC9231C529D00369747 /* CardKTheme.m in Sources */,
 				92E247F32475481700C2EF6C /* CardKBinding.m in Sources */,
 				9234CC4F247BC315009E3034 /* CardKValidation.m in Sources */,
@@ -724,15 +730,16 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CardKitCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-.CardKitCore";
+				PRODUCT_BUNDLE_IDENTIFIER = com.anjlab.CardKitCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -749,15 +756,16 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CardKitCore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "-.CardKitCore";
+				PRODUCT_BUNDLE_IDENTIFIER = com.anjlab.CardKitCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -965,6 +973,7 @@
 		D245AB4E231C435E00369747 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -979,7 +988,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = CardKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -989,6 +998,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.anjlab.CardKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -996,6 +1006,7 @@
 		D245AB4F231C435E00369747 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -1010,7 +1021,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = CardKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1020,6 +1031,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.anjlab.CardKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

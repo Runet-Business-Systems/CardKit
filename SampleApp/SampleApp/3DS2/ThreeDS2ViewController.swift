@@ -24,18 +24,25 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
   let transactionManager: TransactionManager = TransactionManager()
   var aRes = ["threeDSServerTransID": "", "acsTransID": "", "acsReferenceNumber": "", "acsSignedContent": ""]
   static var requestParams: RequestParams = RequestParams();
+  let reqResController = ReqResDetailsController()
   
-  func addLog(title: String, log: String) {
-    ThreeDS2ViewController.logs.add(["title": title, "log": log])
+  func addLog(title: String, request: String, response: String, isReload: Bool = false) {
+    ThreeDS2ViewController.logs.add(["title": title, "response": response, "request": request])
     
-    self.tableView.reloadData()
+    if isReload {
+      self.tableView.reloadData()
+    }
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     transactionManager.delegate2 = self
     textFieldBaseUrl.text = url
-    textFieldBaseUrl.backgroundColor = .white
+    textFieldBaseUrl.text = url
+    textFieldBaseUrl.backgroundColor = .lightGray
+    textFieldBaseUrl.layer.cornerRadius = 10
+    textFieldBaseUrl.textAlignment = .center
+    
     button.setTitle("Старт", for: .normal)
     button.setTitleColor(.systemBlue, for: .normal)
     button.addTarget(self, action: #selector(pressedButton), for: .touchUpInside)
@@ -59,16 +66,6 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     self.tableView.setNeedsLayout()
     self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellIdentifier")
     
-    let doneButton = UIBarButtonItem(title: "Старт", style: .plain, target: self, action: #selector(pressedButton))
-
-    let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-    
-    let cancelButton = UIBarButtonItem(title: "Очистить", style: .plain, target: self, action: #selector(pressedCleanButton))
-    
-    self.setToolbarItems([cancelButton,spaceButton, doneButton], animated: false)
-
-    self.navigationController?.isToolbarHidden = false
-    
     CardKConfig.shared.theme = CardKTheme.light();
     CardKConfig.shared.language = "";
     CardKConfig.shared.bindingCVCRequired = true;
@@ -78,7 +75,7 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     CardKConfig.shared.mrBinApiURL = "https://mrbin.io/bins/display";
     CardKConfig.shared.mrBinURL = "https://mrbin.io/bins/";
     
-    self.view.backgroundColor = CardKTheme.light().colorTableBackground;
+//    self.view.backgroundColor = CardKTheme.light().colorTableBackground;
   }
   
   @objc func pressedCleanButton() {
@@ -98,7 +95,9 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     ThreeDS2ViewController.requestParams.text = "DE DE"
     ThreeDS2ViewController.requestParams.threeDSSDK = "true"
     
-    API.registerNewOrder(params: ThreeDS2ViewController.requestParams) { [weak self] (data) in
+    API.registerNewOrder(params: ThreeDS2ViewController.requestParams) {(data) in
+      self.addLog(title: "Register New Order", request: String(describing: ThreeDS2ViewController.requestParams), response:String(describing: data))
+      
       ThreeDS2ViewController.requestParams.orderId = data.orderId
       CardKConfig.shared.mdOrder = data.orderId ?? ""
     }
@@ -128,52 +127,63 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     self.present(navController, animated: true)
   }
   
-  override func viewDidLayoutSubviews() {
-    textFieldBaseUrl.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 50)
-    
-    headerView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 50)
+  
+  override func viewWillAppear(_ animated: Bool) {
+    textFieldBaseUrl.frame = CGRect(x: 20, y: 10, width: self.view.bounds.width - 40, height: 50)
+
+    headerView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 70)
     self.tableView.tableHeaderView?.frame = headerView.frame
     self.navigationController?.isNavigationBarHidden = false
+    
+    
+    let doneButton = UIBarButtonItem(title: "Старт", style: .plain, target: self, action: #selector(pressedButton))
+
+    let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    
+    let cancelButton = UIBarButtonItem(title: "Очистить", style: .plain, target: self, action: #selector(pressedCleanButton))
+    
+    self.setToolbarItems([cancelButton,spaceButton, doneButton], animated: false)
+
+    self.navigationController?.isToolbarHidden = false
   }
   
   func _test() {
+  
     
-    API.sePayment(params: ThreeDS2ViewController.requestParams) { [weak self] (data, responseJSON) in
+    API.sePayment(params: ThreeDS2ViewController.requestParams) {(data, responseJSON) in
       DispatchQueue.main.async {
-        self?.addLog(title: "Response: Payment", log: String(describing: responseJSON) )
+        self.addLog(title: "Payment", request: String(describing: ThreeDS2ViewController.requestParams), response: String(describing: responseJSON))
+
         guard let data = data else {
-          self?.transactionManager.close()
+          self.transactionManager.close()
           return
         }
         
         ThreeDS2ViewController.requestParams.threeDSSDKKey = data.threeDSSDKKey
         ThreeDS2ViewController.requestParams.threeDSServerTransId = data.threeDSServerTransId
         
-        self?.transactionManager.pubKey = data.threeDSSDKKey ?? ""
-        self?.transactionManager.initializeSdk()
+        self.transactionManager.pubKey = data.threeDSSDKKey ?? ""
+        self.transactionManager.initializeSdk()
         TransactionManager.sdkProgressDialog?.show()
-        ThreeDS2ViewController.requestParams.authParams = self!.transactionManager.getAuthRequestParameters()
+        ThreeDS2ViewController.requestParams.authParams = self.transactionManager.getAuthRequestParameters()
         
-        
-        self?.addLog(title: "Request: Payment step 2", log: String(describing: ThreeDS2ViewController.requestParams))
-        
-        API.sePaymentStep2(params: ThreeDS2ViewController.requestParams) { [weak self] (data, responseJSON) in
+        API.sePaymentStep2(params: ThreeDS2ViewController.requestParams) {(data, responseJSON) in
           
-          self?.addLog(title: "Response: Payment step 2", log: String(describing: responseJSON) )
+          self.addLog(title: "Payment step 2", request: String(describing: ThreeDS2ViewController.requestParams), response: String(describing: responseJSON))
 
           guard let data = data else {
-            self?.transactionManager.close()
+            self.transactionManager.close()
             return
           }
                       
-          self?.aRes["threeDSServerTransID"] = ThreeDS2ViewController.requestParams.threeDSServerTransId ?? ""
-          self?.aRes["acsTransID"] = data.acsTransID
-          self?.aRes["acsReferenceNumber"] = data.acsReferenceNumber
-          self?.aRes["acsSignedContent"] = data.acsSignedContent
+          self.aRes["threeDSServerTransID"] = ThreeDS2ViewController.requestParams.threeDSServerTransId ?? ""
+          self.aRes["acsTransID"] = data.acsTransID
+          self.aRes["acsReferenceNumber"] = data.acsReferenceNumber
+          self.aRes["acsSignedContent"] = data.acsSignedContent
 
-          let aRes: ARes = ARes(JSON: self!.aRes)!;
+          let aRes: ARes = ARes(JSON: self.aRes)!;
           
-          self?.transactionManager.handleResponse(responseObject: aRes)
+          self.transactionManager.handleResponse(responseObject: aRes)
         }
       }
     }
@@ -188,9 +198,8 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     
     let log = ThreeDS2ViewController.logs[indexPath.item] as! [String: String]
     
-    cell.textLabel?.text = "\(log["title"] ?? "") \n \(log["log"] ?? "")"
-    cell.textLabel?.numberOfLines = 0
-    cell.textLabel?.lineBreakMode = .byWordWrapping
+    cell.textLabel?.text = "\(log["title"] ?? "")"
+    cell.accessoryType = .disclosureIndicator
 
     return cell
   }
@@ -200,7 +209,18 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
   }
 
   override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-    return false
+    return true
+  }
+  
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let log = ThreeDS2ViewController.logs[indexPath.item] as! [String: String]
+    
+    reqResController.requestInfo = log["request"] ?? ""
+    reqResController.responseInfo = log["response"] ?? ""
+    
+    self.navigationController?.pushViewController(reqResController, animated: true)
+    
+    self.tableView.deselectRow(at: indexPath, animated: true)
   }
   
   

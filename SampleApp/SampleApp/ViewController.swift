@@ -8,7 +8,6 @@
 
 import UIKit
 import CardKit
-import CardKitCore
 
 let publicKey = """
 -----BEGIN PUBLIC KEY-----
