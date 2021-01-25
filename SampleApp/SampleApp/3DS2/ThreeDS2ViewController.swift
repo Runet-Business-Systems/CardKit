@@ -39,7 +39,7 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     transactionManager.delegate2 = self
     textFieldBaseUrl.text = url
     textFieldBaseUrl.text = url
-    textFieldBaseUrl.backgroundColor = .lightGray
+    textFieldBaseUrl.backgroundColor = CardKTheme.light().colorTableBackground;
     textFieldBaseUrl.layer.cornerRadius = 10
     textFieldBaseUrl.textAlignment = .center
     
@@ -74,8 +74,6 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     CardKConfig.shared.mdOrder = "mdOrder";
     CardKConfig.shared.mrBinApiURL = "https://mrbin.io/bins/display";
     CardKConfig.shared.mrBinURL = "https://mrbin.io/bins/";
-    
-//    self.view.backgroundColor = CardKTheme.light().colorTableBackground;
   }
   
   @objc func pressedCleanButton() {
@@ -95,8 +93,19 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     ThreeDS2ViewController.requestParams.text = "DE DE"
     ThreeDS2ViewController.requestParams.threeDSSDK = "true"
     
-    API.registerNewOrder(params: ThreeDS2ViewController.requestParams) {(data) in
-      self.addLog(title: "Register New Order", request: String(describing: ThreeDS2ViewController.requestParams), response:String(describing: data))
+    API.registerNewOrder(params: ThreeDS2ViewController.requestParams) {(data, response) in
+      let params = ThreeDS2ViewController.requestParams
+      let body = [
+        "amount": params.amount ?? "",
+        "userName": params.userName ?? "",
+        "password": params.password ?? "",
+        "returnUrl": params.returnUrl ?? "",
+        "failUrl": params.failUrl ?? "",
+        "email": params.email ?? "",
+      ];
+      
+      self.addLog(title: "Register New Order",
+                  request: String(describing: Utils.jsonSerialization(data: body)), response:String(describing: Utils.jsonSerialization(data: response)))
       
       ThreeDS2ViewController.requestParams.orderId = data.orderId
       CardKConfig.shared.mdOrder = data.orderId ?? ""
@@ -148,11 +157,19 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
   }
   
   func _test() {
-  
-    
-    API.sePayment(params: ThreeDS2ViewController.requestParams) {(data, responseJSON) in
+    API.sePayment(params: ThreeDS2ViewController.requestParams) {(data, response) in
       DispatchQueue.main.async {
-        self.addLog(title: "Payment", request: String(describing: ThreeDS2ViewController.requestParams), response: String(describing: responseJSON))
+        let params = ThreeDS2ViewController.requestParams
+        let body = [
+          "seToken": params.seToken ?? "",
+          "MDORDER": params.orderId ?? "",
+          "userName": params.userName ?? "",
+          "password": params.password ?? "",
+          "TEXT": params.text ?? "",
+          "threeDSSDK": params.threeDSSDK ?? "",
+        ];
+        
+        self.addLog(title: "Payment", request: String(describing: Utils.jsonSerialization(data: body)), response: Utils.jsonSerialization(data: response))
 
         guard let data = data else {
           self.transactionManager.close()
@@ -167,9 +184,23 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
         TransactionManager.sdkProgressDialog?.show()
         ThreeDS2ViewController.requestParams.authParams = self.transactionManager.getAuthRequestParameters()
         
-        API.sePaymentStep2(params: ThreeDS2ViewController.requestParams) {(data, responseJSON) in
+        API.sePaymentStep2(params: ThreeDS2ViewController.requestParams) {(data, response) in
+          let params = ThreeDS2ViewController.requestParams
+          let body = [
+            "seToken": params.seToken ?? "",
+            "MDORDER": params.orderId ?? "",
+            "threeDSServerTransId": params.threeDSServerTransId ?? "",
+            "userName": params.userName ?? "",
+            "password": params.password ?? "",
+            "TEXT": params.text ?? "",
+            "threeDSSDK": params.threeDSSDK ?? "",
+            "threeDSSDKEncData": params.authParams!.getDeviceData(),
+            "threeDSSDKEphemPubKey":params.authParams!.getSDKEphemeralPublicKey(),
+            "threeDSSDKAppId": params.authParams!.getSDKAppID(),
+            "threeDSSDKTransId": params.authParams!.getSDKTransactionID()
+          ];
           
-          self.addLog(title: "Payment step 2", request: String(describing: ThreeDS2ViewController.requestParams), response: String(describing: responseJSON))
+          self.addLog(title: "Payment step 2", request: String(describing: Utils.jsonSerialization(data: body)), response: String(describing: Utils.jsonSerialization(data: response)))
 
           guard let data = data else {
             self.transactionManager.close()

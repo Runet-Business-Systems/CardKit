@@ -43,7 +43,7 @@ let pubKey = """
     """
 
 class API {
-  static func registerNewOrder(params: RequestParams, completionHandler: @escaping (ResponseParams) -> Void) {
+    static func registerNewOrder(params: RequestParams, completionHandler: @escaping (ResponseParams, Data) -> Void) {
       let headers = [
         "content-type": "application/x-www-form-urlencoded",
       ]
@@ -72,14 +72,14 @@ class API {
         if let responseJSON = responseJSON as? [String: Any] {
           var responseParams = ResponseParams()
           responseParams.orderId = (responseJSON["orderId"] as! String)
-          completionHandler(responseParams)
+          completionHandler(responseParams, data)
         }
       })
 
       dataTask.resume()
   }
 
-  static func sePayment(params: RequestParams, completionHandler: @escaping (ResponseParams?, [String : Any]?) -> Void) {
+  static func sePayment(params: RequestParams, completionHandler: @escaping (ResponseParams?, Data) -> Void) {
     let headers = [
       "Content-Type": "application/x-www-form-urlencoded"
     ]
@@ -100,7 +100,7 @@ class API {
 
     URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
       guard let data = data else {
-        completionHandler(nil, nil)
+//        completionHandler(nil, data)
         return
       }
       
@@ -112,7 +112,7 @@ class API {
         let threeDSSDKKey = responseJSON["threeDSSDKKey"] as? String,
         let threeDSServerTransId = responseJSON["threeDSServerTransId"] as? String
       else {
-        completionHandler(nil, responseJSON)
+        completionHandler(nil, data)
         return
       }
       
@@ -121,12 +121,12 @@ class API {
       responseParams.threeDSSDKKey = threeDSSDKKey
       responseParams.threeDSServerTransId = threeDSServerTransId
       
-      completionHandler(responseParams, nil)
+      completionHandler(responseParams, data)
     }).resume()
   }
 
 
-  static func sePaymentStep2(params: RequestParams, completionHandler: @escaping (ResponseParams?, [String : Any]?) -> Void) {
+  static func sePaymentStep2(params: RequestParams, completionHandler: @escaping (ResponseParams?, Data) -> Void) {
     let headers = [
       "Content-Type": "application/x-www-form-urlencoded",
     ]
@@ -164,7 +164,7 @@ class API {
         let acsReferenceNumber = responseJSON["threeDSAcsRefNumber"] as? String,
         let acsSignedContent = responseJSON["threeDSAcsSignedContent"] as? String
       else {
-        completionHandler(nil, responseJSON)
+        completionHandler(nil, data)
         return
       }
       
@@ -174,11 +174,11 @@ class API {
       responseParams.acsReferenceNumber = acsReferenceNumber
       responseParams.acsSignedContent = acsSignedContent
       
-      completionHandler(responseParams, nil)
+      completionHandler(responseParams, data)
     }).resume()
   }
 
-  static func finishOrder(params: RequestParams, completionHandler: @escaping (ResponseParams) -> Void) {
+  static func finishOrder(params: RequestParams, completionHandler: @escaping (Any, Data) -> Void) {
     let headers = [
       "Content-Type": "application/x-www-form-urlencoded",
     ]
@@ -195,18 +195,18 @@ class API {
     request.encodeParameters(parameters: body)
 
     let session = URLSession.shared
-    session.dataTask(with: request as URLRequest, completionHandler: { [self] (data, response, error) -> Void in
+    session.dataTask(with: request as URLRequest, completionHandler: {(data, response, error) -> Void in
       
       guard let data = data else { return }
       
-      let responseJSON = try! JSONSerialization.jsonObject(with: data, options: [])
+        let responseJSON = try! JSONSerialization.jsonObject(with: data, options: [])
       
       let responseParams = ResponseParams()
-      completionHandler(responseParams)
+      completionHandler(responseJSON, data)
     }).resume()
   }
   
-  static func fetchOrderStatus(params: RequestParams, completionHandler: @escaping (ResponseParams) -> Void) {
+  static func fetchOrderStatus(params: RequestParams, completionHandler: @escaping (Any, Data) -> Void) {
     let headers = [
       "Content-Type": "application/x-www-form-urlencoded",
     ]
@@ -244,7 +244,7 @@ class API {
         print("fetchOrderStatus: \(responseJSON)")
       }
       var responseParams = ResponseParams()
-      completionHandler(responseParams)
+      completionHandler(responseJSON, data)
     }).resume()
   }
 }

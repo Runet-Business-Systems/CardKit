@@ -169,12 +169,37 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
 //     */
     public func completed(completionEvent e: CompletionEvent) {
       let transactionStatus : String? = e.getTransactionStatus()
-      API.finishOrder(params: ThreeDS2ViewController.requestParams) { (data) in
-        self.delegate2?.addLog(title: "Finish order", request: String(describing: ThreeDS2ViewController.requestParams), response: String(describing: data), isReload: false)
+      API.finishOrder(params: ThreeDS2ViewController.requestParams) { (data, response) in
+        let params = ThreeDS2ViewController.requestParams
+        let body = [
+          "threeDSServerTransId": params.threeDSServerTransId ?? "",
+          "userName": params.userName ?? "",
+          "password": params.password ?? "",
+        ];
+        
+        self.delegate2?.addLog(title: "Finish order", request: String(describing: Utils.jsonSerialization(data: body)), response: String(describing: Utils.jsonSerialization(data: response)), isReload: false)
 
-        API.fetchOrderStatus(params: ThreeDS2ViewController.requestParams) {(data) in
+        API.fetchOrderStatus(params: ThreeDS2ViewController.requestParams) {(data, response) in
+            let params = ThreeDS2ViewController.requestParams
+            let body = [
+              "seToken": params.seToken ?? "",
+              "MDORDER": params.orderId ?? "",
+              "threeDSServerTransId": params.threeDSServerTransId ?? "",
+              "userName": params.userName ?? "",
+              "password": params.password ?? "",
+              "TEXT": params.text ?? "",
+              "threeDSSDK": params.threeDSSDK ?? "",
+              "threeDSSDKEncData": params.authParams!.getDeviceData(),
+              "threeDSSDKEphemPubKey": params.authParams!.getSDKEphemeralPublicKey(),
+              "threeDSSDKAppId": params.authParams!.getSDKAppID(),
+              "threeDSSDKTransId": params.authParams!.getSDKTransactionID()
+            ];
+
             DispatchQueue.main.async {
-              self.delegate2?.addLog(title: "Fetch order status", request: String(describing: ThreeDS2ViewController.requestParams), response: String(describing: data), isReload: true)
+              self.delegate2?.addLog(title: "Fetch order status",
+                                     request: String(describing: Utils.jsonSerialization(data: body)),
+                                     response: String(describing: Utils.jsonSerialization(data: response)),
+                                     isReload: true)
             }
         }
       }
