@@ -103,8 +103,8 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
       }
     }
     
-    func getAuthRequestParameters() -> ThreeDSSDK.AuthenticationRequestParameters {
-        let authRequestParams = try! self.sdkTransaction!.getAuthenticationRequestParameters()
+    func getAuthRequestParameters() throws -> ThreeDSSDK.AuthenticationRequestParameters {
+        let authRequestParams = try self.sdkTransaction!.getAuthenticationRequestParameters()
         
         print("encoded device info \(authRequestParams.getDeviceData())")
         print("ephem pub key \(authRequestParams.getSDKEphemeralPublicKey())")

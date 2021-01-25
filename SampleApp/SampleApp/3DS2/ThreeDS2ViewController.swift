@@ -10,6 +10,7 @@ import UIKit
 import CardKit
 
 class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
+  let notificationCenter = NotificationCenter.default
   var button = UIButton()
   var cleanButton = UIButton()
   var toolBar = UIToolbar()
@@ -74,6 +75,12 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     CardKConfig.shared.mdOrder = "mdOrder";
     CardKConfig.shared.mrBinApiURL = "https://mrbin.io/bins/display";
     CardKConfig.shared.mrBinURL = "https://mrbin.io/bins/";
+    
+    notificationCenter.addObserver(self, selector: #selector(reloadTableView), name: Notification.Name("ReloadTable"), object: nil)
+  }
+  
+  @objc func reloadTableView() {
+    self.tableView.reloadData()
   }
   
   @objc func pressedCleanButton() {
@@ -82,34 +89,8 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
   }
   
   @objc func pressedButton() {
-    url = textFieldBaseUrl.text ?? url
-    
-    ThreeDS2ViewController.requestParams.amount = "2000"
-    ThreeDS2ViewController.requestParams.userName = "3ds2-api"
-    ThreeDS2ViewController.requestParams.password = "testPwd"
-    ThreeDS2ViewController.requestParams.returnUrl = "../merchants/rbs/finish.html"
-    ThreeDS2ViewController.requestParams.failUrl = "errors_ru.html"
-    ThreeDS2ViewController.requestParams.email = "test@test.ru"
-    ThreeDS2ViewController.requestParams.text = "DE DE"
-    ThreeDS2ViewController.requestParams.threeDSSDK = "true"
-    
-    API.registerNewOrder(params: ThreeDS2ViewController.requestParams) {(data, response) in
-      let params = ThreeDS2ViewController.requestParams
-      let body = [
-        "amount": params.amount ?? "",
-        "userName": params.userName ?? "",
-        "password": params.password ?? "",
-        "returnUrl": params.returnUrl ?? "",
-        "failUrl": params.failUrl ?? "",
-        "email": params.email ?? "",
-      ];
-      
-      self.addLog(title: "Register New Order",
-                  request: String(describing: Utils.jsonSerialization(data: body)), response:String(describing: Utils.jsonSerialization(data: response)))
-      
-      ThreeDS2ViewController.requestParams.orderId = data.orderId
-      CardKConfig.shared.mdOrder = data.orderId ?? ""
-    }
+    self.runSDK()
+    self.registerOrder()
     
     let controller = CardKViewController();
     controller.cKitDelegate = self;
@@ -157,6 +138,42 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
   }
   
   func _test() {
+    self.sePayment()
+  }
+  
+  func runSDK() {
+    url = textFieldBaseUrl.text ?? url
+    
+    ThreeDS2ViewController.requestParams.amount = "2000"
+    ThreeDS2ViewController.requestParams.userName = "3ds2-api"
+    ThreeDS2ViewController.requestParams.password = "testPwd"
+    ThreeDS2ViewController.requestParams.returnUrl = "../merchants/rbs/finish.html"
+    ThreeDS2ViewController.requestParams.failUrl = "errors_ru.html"
+    ThreeDS2ViewController.requestParams.email = "test@test.ru"
+    ThreeDS2ViewController.requestParams.text = "DE DE"
+    ThreeDS2ViewController.requestParams.threeDSSDK = "true"
+  }
+  
+  func registerOrder() {
+    API.registerNewOrder(params: ThreeDS2ViewController.requestParams) {(data, response) in
+      let params = ThreeDS2ViewController.requestParams
+      let body = [
+        "amount": params.amount ?? "",
+        "userName": params.userName ?? "",
+        "password": params.password ?? "",
+        "returnUrl": params.returnUrl ?? "",
+        "failUrl": params.failUrl ?? "",
+        "email": params.email ?? "",
+      ];
+      
+      self.addLog(title: "Register New Order",
+                  request: String(describing: Utils.jsonSerialization(data: body)), response:String(describing: Utils.jsonSerialization(data: response)))
+   
+      ThreeDS2ViewController.requestParams.orderId = data.orderId
+    }
+  }
+  
+  func sePayment() {
     API.sePayment(params: ThreeDS2ViewController.requestParams) {(data, response) in
       DispatchQueue.main.async {
         let params = ThreeDS2ViewController.requestParams
@@ -173,6 +190,7 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
 
         guard let data = data else {
           self.transactionManager.close()
+          self.notificationCenter.post(name: Notification.Name("ReloadTable"), object: nil)
           return
         }
         
@@ -182,43 +200,53 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
         self.transactionManager.pubKey = data.threeDSSDKKey ?? ""
         self.transactionManager.initializeSdk()
         TransactionManager.sdkProgressDialog?.show()
-        ThreeDS2ViewController.requestParams.authParams = self.transactionManager.getAuthRequestParameters()
         
-        API.sePaymentStep2(params: ThreeDS2ViewController.requestParams) {(data, response) in
-          let params = ThreeDS2ViewController.requestParams
-          let body = [
-            "seToken": params.seToken ?? "",
-            "MDORDER": params.orderId ?? "",
-            "threeDSServerTransId": params.threeDSServerTransId ?? "",
-            "userName": params.userName ?? "",
-            "password": params.password ?? "",
-            "TEXT": params.text ?? "",
-            "threeDSSDK": params.threeDSSDK ?? "",
-            "threeDSSDKEncData": params.authParams!.getDeviceData(),
-            "threeDSSDKEphemPubKey":params.authParams!.getSDKEphemeralPublicKey(),
-            "threeDSSDKAppId": params.authParams!.getSDKAppID(),
-            "threeDSSDKTransId": params.authParams!.getSDKTransactionID()
-          ];
-          
-          self.addLog(title: "Payment step 2", request: String(describing: Utils.jsonSerialization(data: body)), response: String(describing: Utils.jsonSerialization(data: response)))
-
-          guard let data = data else {
-            self.transactionManager.close()
-            return
-          }
-                      
-          self.aRes["threeDSServerTransID"] = ThreeDS2ViewController.requestParams.threeDSServerTransId ?? ""
-          self.aRes["acsTransID"] = data.acsTransID
-          self.aRes["acsReferenceNumber"] = data.acsReferenceNumber
-          self.aRes["acsSignedContent"] = data.acsSignedContent
-
-          let aRes: ARes = ARes(JSON: self.aRes)!;
-          
-          self.transactionManager.handleResponse(responseObject: aRes)
+        do {
+          ThreeDS2ViewController.requestParams.authParams = try self.transactionManager.getAuthRequestParameters()
+          self.sePaymentStep2()
+        } catch {
+          TransactionManager.sdkProgressDialog?.close()
+          self.notificationCenter.post(name: Notification.Name("ReloadTable"), object: nil)
         }
       }
     }
   }
+
+  func sePaymentStep2() {
+    API.sePaymentStep2(params: ThreeDS2ViewController.requestParams) {(data, response) in
+      let params = ThreeDS2ViewController.requestParams
+      let body = [
+        "seToken": params.seToken ?? "",
+        "MDORDER": params.orderId ?? "",
+        "threeDSServerTransId": params.threeDSServerTransId ?? "",
+        "userName": params.userName ?? "",
+        "password": params.password ?? "",
+        "TEXT": params.text ?? "",
+        "threeDSSDK": params.threeDSSDK ?? "",
+        "threeDSSDKEncData": params.authParams!.getDeviceData(),
+        "threeDSSDKEphemPubKey":params.authParams!.getSDKEphemeralPublicKey(),
+        "threeDSSDKAppId": params.authParams!.getSDKAppID(),
+        "threeDSSDKTransId": params.authParams!.getSDKTransactionID()
+      ];
+      
+      self.addLog(title: "Payment step 2", request: String(describing: Utils.jsonSerialization(data: body)), response: String(describing: Utils.jsonSerialization(data: response)))
+
+      guard let data = data else {
+        self.transactionManager.close()
+        return
+      }
+                  
+      self.aRes["threeDSServerTransID"] = ThreeDS2ViewController.requestParams.threeDSServerTransId ?? ""
+      self.aRes["acsTransID"] = data.acsTransID
+      self.aRes["acsReferenceNumber"] = data.acsReferenceNumber
+      self.aRes["acsSignedContent"] = data.acsSignedContent
+
+      let aRes: ARes = ARes(JSON: self.aRes)!;
+      
+      self.transactionManager.handleResponse(responseObject: aRes)
+    }
+  }
+  
   
   @objc func _close(sender:UIButton){
     self.navigationController?.dismiss(animated: true, completion: nil)
