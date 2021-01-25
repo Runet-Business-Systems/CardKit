@@ -322,7 +322,7 @@ class ViewController: UITableViewController {
   }
     
   func _open3DSView() {
-    let controller = ThreeDS2ViewController();
+    let controller = ThreeDS2ViewController(style: .grouped);
 
     self.navigationController?.pushViewController(controller, animated: true)
   }

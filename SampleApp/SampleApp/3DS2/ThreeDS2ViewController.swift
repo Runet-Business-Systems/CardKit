@@ -37,10 +37,30 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    if #available(iOS 13.0, *) {
+      CardKConfig.shared.theme = CardKTheme.system()
+    } else {
+      CardKConfig.shared.theme = CardKTheme.light()
+    };
+    CardKConfig.shared.language = "";
+    CardKConfig.shared.bindingCVCRequired = true;
+    CardKConfig.shared.bindings = [];
+    CardKConfig.shared.isTestMod = true;
+    CardKConfig.shared.mdOrder = "mdOrder";
+    CardKConfig.shared.mrBinApiURL = "https://mrbin.io/bins/display";
+    CardKConfig.shared.mrBinURL = "https://mrbin.io/bins/";
+    
+    let theme = CardKConfig.shared.theme
+    
     transactionManager.delegate2 = self
     textFieldBaseUrl.text = url
-    textFieldBaseUrl.text = url
-    textFieldBaseUrl.backgroundColor = CardKTheme.light().colorTableBackground;
+  
+    if #available(iOS 13.0, *) {
+      textFieldBaseUrl.backgroundColor = .systemGray5
+    } else {
+      textFieldBaseUrl.backgroundColor = theme.colorCellBackground
+    };
+    
     textFieldBaseUrl.layer.cornerRadius = 10
     textFieldBaseUrl.textAlignment = .center
     
@@ -58,23 +78,12 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     self.tableView.rowHeight = UITableView.automaticDimension
     self.tableView.estimatedRowHeight = 44
 
-    
-    self.tableView.backgroundColor = .white
     self.tableView.separatorStyle = .none
     
     self.tableView.dataSource = self
     self.tableView.delegate = self
     self.tableView.setNeedsLayout()
     self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellIdentifier")
-    
-    CardKConfig.shared.theme = CardKTheme.light();
-    CardKConfig.shared.language = "";
-    CardKConfig.shared.bindingCVCRequired = true;
-    CardKConfig.shared.bindings = [];
-    CardKConfig.shared.isTestMod = true;
-    CardKConfig.shared.mdOrder = "mdOrder";
-    CardKConfig.shared.mrBinApiURL = "https://mrbin.io/bins/display";
-    CardKConfig.shared.mrBinURL = "https://mrbin.io/bins/";
     
     notificationCenter.addObserver(self, selector: #selector(reloadTableView), name: Notification.Name("ReloadTable"), object: nil)
   }
@@ -96,7 +105,6 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     controller.cKitDelegate = self;
     
     let createdUiController = CardKViewController.create(self, controller: controller);
-    
     
     let navController = UINavigationController(rootViewController: createdUiController)
     
@@ -318,10 +326,6 @@ extension ThreeDS2ViewController: CardKDelegate {
     paymentView.paymentRequest.paymentSummaryItems = [paymentItem]
     paymentView.paymentButtonStyle = .black;
     paymentView.paymentButtonType = .buy;
-    
-    paymentView.cardPaybutton.backgroundColor = .white;
-    paymentView.cardPaybutton.setTitleColor(.black, for: .normal);
-    paymentView.cardPaybutton.setTitle("Custom title", for: .normal);
   }
   
   func didLoad(_ controller: CardKViewController) {

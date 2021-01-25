@@ -42,7 +42,6 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
     @objc var uiViewController: UIViewController?
   
     @objc public func getSdkVersion() -> String {
-        
         var result = "(Unknown)"
         self.initSdkOnce()
         if (service != nil){
