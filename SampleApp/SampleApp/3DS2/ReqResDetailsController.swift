@@ -25,8 +25,15 @@ class ReqResDetailsController: UIViewController  {
     segmentControl.selectedSegmentIndex = 0
     segmentControl.addTarget(self, action: #selector(changeAction), for: .valueChanged)
 
-    self.view.backgroundColor = .white
+    if #available(iOS 13.0, *) {
+        self.view.backgroundColor = .systemGray6
+        textView.textColor = .label
+    } else {
+        self.view.backgroundColor = .white
+        textView.textColor = .black
+    }
     textView.isEditable = false
+    textView.backgroundColor = .clear
     uiScrollView.isScrollEnabled = true
     self.view.addSubview(uiScrollView)
     uiScrollView.addSubview(segmentControl)
