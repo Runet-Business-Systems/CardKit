@@ -7,6 +7,7 @@
 //
 
 #import "TextField.h"
+#import "CardKConfig.h"
 
 @implementation TextField
 
@@ -17,19 +18,20 @@
         NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
         paragraphStyle.alignment = self.textAlignment;
 
-        NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"Menlo-bold" size:self.font.pointSize]};
+        NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"Menlo-bold" size:self.font.pointSize], NSForegroundColorAttributeName: CardKConfig.shared.theme.colorLabel};
+        
+        
         CGSize textSize = [self.text sizeWithAttributes:attributes];
 
         rect = CGRectInset(rect, 0, (CGRectGetHeight(rect) - textSize.height) * 0.5);
         rect.origin.y = floorf(rect.origin.y);
-
+        
         NSMutableString *redactedText = [NSMutableString new];
         while (redactedText.length < self.text.length)
         {
             [redactedText appendString:@"\u2022"];
         }
         
-
         [redactedText drawInRect:rect withAttributes:attributes];
     }
     else
