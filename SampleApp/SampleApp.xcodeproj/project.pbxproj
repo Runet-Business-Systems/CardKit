@@ -63,7 +63,7 @@
 		9234CC5C247FDA8F009E3034 /* SampleCardKPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCardKPaymentView.swift; sourceTree = "<group>"; };
 		9239890A25AC348100DB1682 /* CardKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9239890E25AC348500DB1682 /* CardKitCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CardKitCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9245F89425B190FB0065AF9E /* ReqResDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqResDetailsController.swift; sourceTree = "<group>"; };
+		9245F89425B190FB0065AF9E /* ReqResDetailsController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ReqResDetailsController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		9245F89825B194280065AF9E /* ThreeDSSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = ThreeDSSDK.xcframework; path = "../../../threeds2-sdk-ios/build/ThreeDSSDK.xcframework"; sourceTree = "<group>"; };
 		9262A63C24C5CAE600042DDC /* CardKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CardKit.podspec; path = ../CardKit.podspec; sourceTree = "<group>"; };
 		926A717725B969D800C72A92 /* Utils.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; tabWidth = 2; };
