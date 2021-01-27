@@ -21,7 +21,8 @@ protocol AddLogDelegate: class {
 public class TransactionManager: NSObject, ChallengeStatusReceiver {
     weak var delegate2: AddLogDelegate?
     weak var delegate: TransactionManagerDelegate?
-  
+    let notificationCenter = NotificationCenter.default
+    
     @objc let TESTPLAN_2_2_PLUS = "2.2"
     @objc let HEADER_LABEL = "SECURE CHECKOUT"
     @objc let TOOLBAR_BACKGROUND = "#83ADD7"
@@ -37,10 +38,10 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
     var viewController: ViewController? = nil
     var sdkTransaction: Transaction?
     @objc var isSdkInitialized: Bool = false
-    //    @objc var psrqMessage : PSrq?
     var isChallengeTransaction : Bool? = false
     @objc var uiViewController: UIViewController?
-  
+    let uiConfig = UiCustomization()
+
     @objc public func getSdkVersion() -> String {
         var result = "(Unknown)"
         self.initSdkOnce()
@@ -51,47 +52,82 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
     }
 
     @objc public func initializeSdk() {
-        
         do {
             initSdkOnce()
-            Log.i(object: self, message: "Create transaction for service")
-            
             self.sdkTransaction = try self.service?.createTransaction(directoryServerID: "directoryServerId", messageVersion: nil, publicKeyBase64: pubKey, rootCertificateBase64: rootKey, logoBase64: logo)
 
             TransactionManager.sdkProgressDialog = try self.sdkTransaction!.getProgressView()
-        }
-        catch _ {
+        } catch _ {
            Log.e(object: self, message: "Error initializing SDK")
         }
     }
     
+    func hexStringFromColor(color: UIColor) -> String {
+        let components = color.cgColor.components
+        let r: CGFloat = components?[0] ?? 0.0
+        let g: CGFloat = components?[1] ?? 0.0
+        let b: CGFloat = components?[2] ?? 0.0
+
+        let hexString = String.init(format: "#%02lX%02lX%02lX", lroundf(Float(r * 255)), lroundf(Float(g * 255)), lroundf(Float(b * 255)))
+        print(hexString)
+        return hexString
+     }
+    
+  
+    func setUpUICustomization(isDarkMode: Bool) throws {
+      let toolbarCustomization = ToolbarCustomization()
+      try toolbarCustomization.setHeaderText(HEADER_LABEL)
+      
+      let indigoColor = UIColor(red: 0.25, green: 0.32, blue: 0.71, alpha: 1.00)
+      let toolbarColor: UIColor = UIColor(named: "toolbarColor") ?? indigoColor
+      toolbarCustomization.setBackgroundColor(toolbarColor)
+      toolbarCustomization.setTextColor(.white)
+      
+      let textColor: UIColor = UIColor(named: "textColor") ?? .white
+      let textBoxCustomization = TextBoxCustomization()
+      try textBoxCustomization.setBorderWidth(1)
+      textBoxCustomization.setBorderColor(.gray)
+      textBoxCustomization.setTextColor(textColor)
+      
+      let buttonDone: UIColor = UIColor(named: "buttonDone") ?? indigoColor
+      let buttonDoneCustomization = ButtonCustomization()
+      buttonDoneCustomization.setBackgroundColor(buttonDone)
+      buttonDoneCustomization.setTextColor(.white)
+      
+      let buttonCancelCustomization = ButtonCustomization()
+      buttonCancelCustomization.setBackgroundColor(.clear)
+      buttonCancelCustomization.setTextColor(.white)
+      
+      let buttonResend: UIColor = UIColor(named: "buttonResend") ?? indigoColor
+      let buttonResendCustomization = ButtonCustomization()
+      buttonResendCustomization.setBackgroundColor(.clear)
+      buttonResendCustomization.setTextColor(buttonResend)
+      
+      let titleCustomization = LabelCustomization()
+      titleCustomization.setTextColor(textColor)
+      titleCustomization.setHeadingTextColor(textColor)
+
+      uiConfig.setToolbarCustomization(toolbarCustomization)
+      uiConfig.setTextBoxCustomization(textBoxCustomization)
+      uiConfig.setLabelCustomization(titleCustomization)
+      try uiConfig.setButtonCustomization(buttonDoneCustomization, .submit)
+      try uiConfig.setButtonCustomization(buttonCancelCustomization, .cancel)
+      try uiConfig.setButtonCustomization(buttonResendCustomization, .resend)
+    }
+
     @objc func initSdkOnce(){
       do {
         if (!self.isSdkInitialized){
-          Log.i(object: self, message: "Initializing SDK")
           let p = ConfigParameters()
           try! p.addParam(nil, ConfigParameters.Key.integrityReferenceValue.rawValue, "abc")
           let config = p
           
           self.service = Ecom3DS2Service()
-          let uiConfig = UiCustomization()
-          // Customize Challenge Header Text
-          let toolbarCustomization = ToolbarCustomization()
-          
-          try? toolbarCustomization.setHeaderText(HEADER_LABEL)
-          try? toolbarCustomization.setBackgroundColor(TOOLBAR_BACKGROUND)
-          
-          let textBoxCustom = TextBoxCustomization()
-          try textBoxCustom.setBorderColor("#555555")
-          try textBoxCustom.setBorderWidth(2)
-          uiConfig.setToolbarCustomization(toolbarCustomization)
-          uiConfig.setTextBoxCustomization(textBoxCustom)
           
           let locale = "en"
-          
+        
           try self.service!.initialize(configParameters: config, locale: locale, uiCustomization: uiConfig)
           self.isSdkInitialized = true
-          Log.i(object: self, message: "Initialized SDK ----------")
         }
         else {
           Log.w(object: self, message: "SDK has already been initialized")
@@ -112,9 +148,6 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
         
         return authRequestParams;
     }
-    /*
-     * AReq/ARes Callbacks
-     */
 
     @objc func testFinished() {
         Log.i(object: self, message: "Test has finished")
@@ -130,7 +163,6 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
       if (aRes.transStatus != nil){
           Log.i(object: self, message: "handle response for transStatus= \(aRes.transStatus!)")
       }
-
 
       Log.i(object: self, message: "12. create challenge parameters")
       let challengeParameters = createChallengeParameters(aRes: aRes)
@@ -148,9 +180,7 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
 
       return challengeParameters
     }
-//    /*
-//     * Execute Challenge
-//     */
+
     func executeChallenge(delegate: ChallengeStatusReceiver ,challengeParameters: ChallengeParameters, timeout : Int32) {
 
         DispatchQueue.main.async(){
@@ -162,10 +192,7 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
             }
         }
     }
-//
-//    /*
-//     * CReq/CRes Callbacks
-//     */
+
     public func completed(completionEvent e: CompletionEvent) {
       let transactionStatus : String? = e.getTransactionStatus()
       API.finishOrder(params: ThreeDS2ViewController.requestParams) { (data, response) in
@@ -214,11 +241,21 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
     }
 
     public func close() {
-      try? sdkTransaction?.close()
+      do {
+        try sdkTransaction?.close()
+      } catch {
+        
+      }
+    }
+    
+    private func reloadTable() {
+        self.notificationCenter.post(name: Notification.Name("ReloadTable"), object: nil)
     }
 
     @objc public func cancelled() {
         Log.w (object: self, message:  "TransactionManager - Cancelled")
+        
+        self.reloadTable()
         testFinished()
     }
 
@@ -226,6 +263,7 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
         Log.e(object: self, message: "TransactionManager - timedOut")
         
         delegate?.errorEventReceived()
+        self.reloadTable()
         testFinished()
     }
 
@@ -233,12 +271,14 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
         Log.e(object: self, message: "TransactionManager - Protocol error")
 
         delegate?.errorEventReceived()
+        self.reloadTable()
         testFinished()
     }
 
     public func runtimeError(_ e: ProtocolErrorEvent) {
         Log.e(object: self, message: "TransactionManager - run time error")
         delegate?.errorEventReceived()
+        self.reloadTable()
         testFinished()
     }
     

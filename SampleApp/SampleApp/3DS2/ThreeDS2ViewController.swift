@@ -26,7 +26,8 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
   var aRes = ["threeDSServerTransID": "", "acsTransID": "", "acsReferenceNumber": "", "acsSignedContent": ""]
   static var requestParams: RequestParams = RequestParams();
   let reqResController = ReqResDetailsController()
-  
+  var isUseCustomTheme: Bool = false
+
   func addLog(title: String, request: String, response: String, isReload: Bool = false) {
     ThreeDS2ViewController.logs.add(["title": title, "response": response, "request": request])
     
@@ -145,10 +146,6 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     self.navigationController?.isToolbarHidden = false
   }
   
-  func _test() {
-    self.sePayment()
-  }
-  
   func runSDK() {
     url = textFieldBaseUrl.text ?? url
     
@@ -178,6 +175,8 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
                   request: String(describing: Utils.jsonSerialization(data: body)), response:String(describing: Utils.jsonSerialization(data: response)))
    
       ThreeDS2ViewController.requestParams.orderId = data.orderId
+      
+      CardKConfig.shared.mdOrder = data.orderId ?? ""
     }
   }
   
@@ -206,6 +205,23 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
         ThreeDS2ViewController.requestParams.threeDSServerTransId = data.threeDSServerTransId
         
         self.transactionManager.pubKey = data.threeDSSDKKey ?? ""
+        
+        
+        
+        do {
+          var isDarkMode = false
+          
+          if #available(iOS 12.0, *) {
+            if self.traitCollection.userInterfaceStyle == .dark {
+              isDarkMode = true
+            }
+          }
+          
+          if self.isUseCustomTheme {
+            try self.transactionManager.setUpUICustomization(isDarkMode: isDarkMode)
+          }
+        } catch {}
+
         self.transactionManager.initializeSdk()
         TransactionManager.sdkProgressDialog?.show()
         
@@ -241,6 +257,9 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
 
       guard let data = data else {
         self.transactionManager.close()
+        DispatchQueue.global(qos: .background).async {
+          self.notificationCenter.post(name: Notification.Name("ReloadTable"), object: nil)
+        }
         return
       }
                   
@@ -284,7 +303,7 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     
     reqResController.requestInfo = log["request"] ?? ""
     reqResController.responseInfo = log["response"] ?? ""
-    
+  
     self.navigationController?.pushViewController(reqResController, animated: true)
     
     self.tableView.deselectRow(at: indexPath, animated: true)
@@ -310,7 +329,7 @@ extension ThreeDS2ViewController: CardKDelegate {
     ThreeDS2ViewController.requestParams.seToken = seToken
     
     self.dismiss(animated: true, completion: nil)
-    _test()
+    sePayment()
   }
   
   func willShow(_ paymentView: CardKPaymentView) {

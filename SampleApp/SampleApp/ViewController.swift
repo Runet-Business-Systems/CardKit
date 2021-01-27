@@ -43,6 +43,7 @@ struct SectionItem {
     case language
     case paymentView
     case threeDS
+    case threeDSCustomColors
   }
 }
 
@@ -327,18 +328,25 @@ class ViewController: UITableViewController {
     self.navigationController?.pushViewController(controller, animated: true)
   }
   
+  func _open3DSViewCustom() {
+    let controller = ThreeDS2ViewController(style: .grouped);
+    controller.isUseCustomTheme = true
+    self.navigationController?.pushViewController(controller, animated: true)
+  }
+  
   func _callFunctionByKindOfButton(kind: SectionItem.Kind, language: String) {
     switch kind {
-    case .lightTheme: _openController()
-    case .darkTheme: _openDark()
-    case .systemTheme: _openSystemTheme()
-    case .customTheme: _openCustomTheme()
-    case .navLightTheme: _openLightUINavigation()
-    case .navDarkTheme: _openDarkUINavigation()
-    case .navSystemTheme: _openSystemUINavigation()
-    case .language: _openWitchChooseLanguage(language: language)
-    case .paymentView: _openPaymentView()
-    case .threeDS: _open3DSView()
+      case .lightTheme: _openController()
+      case .darkTheme: _openDark()
+      case .systemTheme: _openSystemTheme()
+      case .customTheme: _openCustomTheme()
+      case .navLightTheme: _openLightUINavigation()
+      case .navDarkTheme: _openDarkUINavigation()
+      case .navSystemTheme: _openSystemUINavigation()
+      case .language: _openWitchChooseLanguage(language: language)
+      case .paymentView: _openPaymentView()
+      case .threeDS: _open3DSView()
+      case .threeDSCustomColors: _open3DSViewCustom()
     }
   }
   
@@ -361,7 +369,8 @@ class ViewController: UITableViewController {
     ]),
     
     Section(title: "ThreeDSSample", items: [
-      SectionItem(title: "ThreeDS Sample", kind: .threeDS, isShowChevron: true, language: ""),
+      SectionItem(title: "ThreeDS Sample with default theme", kind: .threeDS, isShowChevron: true, language: ""),
+      SectionItem(title: "ThreeDS Sample with custom theme", kind: .threeDS, isShowChevron: true, language: ""),
     ]),
     
     

@@ -19,7 +19,7 @@
         paragraphStyle.alignment = self.textAlignment;
 
         NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"Menlo-bold" size:self.font.pointSize], NSForegroundColorAttributeName: CardKConfig.shared.theme.colorLabel};
-        
+
         
         CGSize textSize = [self.text sizeWithAttributes:attributes];
 
