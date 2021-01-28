@@ -117,7 +117,6 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     self.tableView.tableHeaderView?.frame = _headerView.frame
     self.navigationController?.isNavigationBarHidden = false
     
-    
     let doneButton = UIBarButtonItem(title: "Старт", style: .plain, target: self, action: #selector(_pressedButton))
     let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     let cancelButton = UIBarButtonItem(title: "Очистить", style: .plain, target: self, action: #selector(_pressedCleanButton))
@@ -186,20 +185,20 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
         
         self._transactionManager.pubKey = data.threeDSSDKKey ?? ""
         
-        do {
-          var isDarkMode = false
-          
-          if #available(iOS 12.0, *) {
-            if self.traitCollection.userInterfaceStyle == .dark {
-              isDarkMode = true
-            }
+        var isDarkMode = false
+        
+        if #available(iOS 12.0, *) {
+          if self.traitCollection.userInterfaceStyle == .dark {
+            isDarkMode = true
           }
-          
-          if self.isUseCustomTheme {
+        }
+             
+        if self.isUseCustomTheme {
+          do {
             try self._transactionManager.setUpUICustomization(isDarkMode: isDarkMode)
-          }
-        } catch {}
-
+          } catch {}
+        }
+        
         self._transactionManager.initializeSdk()
         TransactionManager.sdkProgressDialog?.show()
         
