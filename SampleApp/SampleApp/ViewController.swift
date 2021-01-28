@@ -9,18 +9,6 @@
 import UIKit
 import CardKit
 
-let publicKey = """
------BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiDgvGLU1dFQ0tA0Epbpj
-1gbbAz9/lvZdTyspHCPQ4zTYki1xER8Dy99jzxj83VIiamnwkHUsmcg5mxXfRI/Y
-7mDq9LT1mmoM5RytpfuuFELWrBE59jZzc4FgwcVdvR8oV4ol7RDPDHpSxl9ihC1h
-2KZ/GoKi9G6TULRzD+hLeo9vIpC0vIIGUyxDWtOWi0yDf4MYisUKmgbYya+Z5oOD
-ANHUCiJuMMuuH7ot6hJPxZ61LE0FQP6pxo+r1cezGekwlc8NrKq3XeeNgu4kWFXN
-TBSwAcNAizIvEY4wrqc4ARR3nTlwAxkye9bTNVNROMMiMtu1ERGyRFjI7wnSmRnN
-EwIDAQAB
------END PUBLIC KEY-----
-"""
-
 struct Section {
   let title: String?
   let items: [SectionItem]
@@ -62,6 +50,12 @@ class SampleAppCardIO: NSObject, CardIOViewDelegate {
 class ViewController: UITableViewController {
   var sampleAppCardIO: SampleAppCardIO? = nil
   
+  let publicKey = """
+  -----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAws0r6I8emCsURXfuQcU2c9mwUlOiDjuCZ/f+EdadA4vq/kYt3w6kC5TUW97Fm/HTikkHd0bt8wJvOzz3T0O4so+vBaC0xjE8JuU1eCd+zUX/plw1REVVii1RNh9gMWW1fRNu6KDNSZyfftY2BTcP1dbE1itpXMGUPW+TOk3U9WP4vf7pL/xIHxCsHzb0zgmwShm3D46w7dPW+HO3PEHakSWV9bInkchOvh/vJBiRw6iadAjtNJ4+EkgNjHwZJDuo/0bQV+r9jeOe+O1aXLYK/s1UjRs5T4uGeIzmdLUKnu4eTOQ16P6BHWAjyqPnXliYIKfi+FjZxyWEAlYUq+CRqQIDAQAB
+  -----END PUBLIC KEY-----
+  """
+  
   @objc func _close(sender:UIButton){
     self.navigationController?.dismiss(animated: true, completion: nil)
   }
@@ -77,6 +71,7 @@ class ViewController: UITableViewController {
     CardKConfig.shared.mrBinURL = "https://mrbin.io/bins/";
     CardKConfig.shared.bindingsSectionTitle = "Your cards";
     CardKConfig.shared.pubKey = publicKey;
+    
     let controller = CardKViewController();
     controller.cKitDelegate = self;
     

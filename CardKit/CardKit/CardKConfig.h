@@ -36,12 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 /*! Массив связок*/
 @property NSArray<CardKBinding *> *bindings;
 
-/*! Публичный ключ для продакшина */
-@property NSString *cardKProdKey;
-
-/*! Публичный ключ для тестирования */
-@property NSString *cardKTestKey;
-
 /*! URL для запроса тестового ключа */
 @property NSString *testURL;
 
@@ -54,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSString *bindingsSectionTitle;
 
++ (void) fetchKeys;
 @end
 
 NS_ASSUME_NONNULL_END

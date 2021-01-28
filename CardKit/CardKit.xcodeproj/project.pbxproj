@@ -137,7 +137,7 @@
 		929BA32225591CFC00AB0526 /* TextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextField.h; sourceTree = "<group>"; };
 		929BA32325591CFC00AB0526 /* TextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextField.m; sourceTree = "<group>"; };
 		92A1461823435C6B002FBCC3 /* CardKConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardKConfig.h; sourceTree = "<group>"; };
-		92A1461923435C6B002FBCC3 /* CardKConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardKConfig.m; sourceTree = "<group>"; };
+		92A1461923435C6B002FBCC3 /* CardKConfig.m */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = CardKConfig.m; sourceTree = "<group>"; tabWidth = 2; };
 		92BD8F91255D1AE8001E1ECF /* Luhn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Luhn.m; sourceTree = "<group>"; };
 		92BD8F92255D1AE9001E1ECF /* Luhn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Luhn.h; sourceTree = "<group>"; };
 		92BD8FA8255D1B3A001E1ECF /* RSA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSA.h; sourceTree = "<group>"; };

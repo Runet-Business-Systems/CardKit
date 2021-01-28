@@ -38,14 +38,13 @@ SDK содержит два класса и один делегат.
 |      isTestMod       |      BOOL      |          `false`          |      Да      | Запуск в тестовом режиме, для выбора тестовых ключей.                  |
 |       mdOrder        |     String     |             -             |     Нет      | идентификатор заказа который нужно оплатить криптограммой              |
 |       bindings       | [CardKBinding] |             -             |     Нет      | Массив связок                                                          |
-|     cardKProdKey     |     String     |    `<Публичный ключ>`     |      Да      | Публичный ключ для продакшина                                          |
-|     cardKTestKey     |     String     |    `<Публичный ключ>`     |      Да      | Публичный ключ для тестирования                                        |
+|        pubKey        |     String     |    `<Публичный ключ>`     |     Нет      | Публичный ключ                                                         |
 |       testURL        |     String     |          `<URL>`          |      Да      | URL для запроса тестового ключа                                        |
 |       prodURL        |     String     |          `<URL>`          |      Да      | URL для запроса продакшин ключа                                        |
 |       mrBinURL       |     String     |            nil            |     Нет      | URL корень для отображения картинки например: `https://mrbin.io/bins/` |
 |     mrBinApiURL      |     String     |            nil            |     Нет      | URL для определения банка                                              |
 | bindingsSectionTitle |     String     |            nil            |      Да      | Текст загаловка секции списка связок                                   |
-
+| fetchKeys            |  Function      |              -            |       -      | Функция для запроса публичного ключа                                   |
 ### 4. Пример
 
 ```swift
@@ -56,6 +55,8 @@ SDK содержит два класса и один делегат.
   CardKConfig.shared.bindings = [];
   CardKConfig.shared.isTestMod = true;
   CardKConfig.shared.mdOrder = "mdOrder";
+  CardKConfig.shared.pubKey = "pubKey"; // Присвоить свой собственный публичный ключ
+  CardKConfig.fetchKeys() // Запросить публичный ключ
   ...
 ```
 

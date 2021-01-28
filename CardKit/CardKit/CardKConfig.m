@@ -24,18 +24,9 @@ static CardKConfig *__instance = nil;
 
   config.theme = CardKTheme.defaultTheme;
   config.language = nil;
-  if (config.isTestMod && config.cardKTestKey == nil) {
-    config.pubKey = CardKTestKey;
-  } else if (!config.isTestMod && config.cardKProdKey == nil ) {
-    config.pubKey = CardKProdKey;
-  } else if (config.isTestMod && config.cardKTestKey != nil) {
-    config.pubKey = config.cardKTestKey;
-  } else if (!config.isTestMod && config.cardKProdKey != nil) {
-    config.pubKey = config.cardKProdKey;
-  }
-  
-  [self fetchKeys];
-  
+  config.isTestMod = false;
+  config.pubKey = CardKTestKey;
+
   return config;
 }
 
@@ -83,7 +74,7 @@ static CardKConfig *__instance = nil;
         NSDictionary *lastKey = [keys lastObject];
         NSString *keyValue = [lastKey objectForKey:@"keyValue"];
 
-        __instance.pubKey = @"-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAws0r6I8emCsURXfuQcU2c9mwUlOiDjuCZ/f+EdadA4vq/kYt3w6kC5TUW97Fm/HTikkHd0bt8wJvOzz3T0O4so+vBaC0xjE8JuU1eCd+zUX/plw1REVVii1RNh9gMWW1fRNu6KDNSZyfftY2BTcP1dbE1itpXMGUPW+TOk3U9WP4vf7pL/xIHxCsHzb0zgmwShm3D46w7dPW+HO3PEHakSWV9bInkchOvh/vJBiRw6iadAjtNJ4+EkgNjHwZJDuo/0bQV+r9jeOe+O1aXLYK/s1UjRs5T4uGeIzmdLUKnu4eTOQ16P6BHWAjyqPnXliYIKfi+FjZxyWEAlYUq+CRqQIDAQAB-----END PUBLIC KEY-----";
+        __instance.pubKey = keyValue;
       }
   }];
   [dataTask resume];
