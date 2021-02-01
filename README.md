@@ -56,7 +56,7 @@ SDK содержит два класса и один делегат.
   CardKConfig.shared.isTestMod = true;
   CardKConfig.shared.mdOrder = "mdOrder";
   CardKConfig.shared.pubKey = "pubKey"; // Присвоить свой собственный публичный ключ
-  CardKConfig.fetchKeys() // Запросить публичный ключ
+  CardKConfig.fetchKeys("url") // Запросить публичный ключ
   ...
 ```
 

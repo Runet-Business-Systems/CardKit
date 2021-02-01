@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSString *bindingsSectionTitle;
 
-+ (void) fetchKeys;
++ (void) fetchKeys:(NSString *)url;
 @end
 
 NS_ASSUME_NONNULL_END
