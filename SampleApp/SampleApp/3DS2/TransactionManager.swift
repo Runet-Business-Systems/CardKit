@@ -50,21 +50,30 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
     }
   
     func setUpUICustomization(isDarkMode: Bool) throws {
+      let indigoColor = UIColor(red: 0.25, green: 0.32, blue: 0.71, alpha: 1.00)
+      
+      var toolbarColor: UIColor = indigoColor
+      var textColor: UIColor = .white
+      var buttonDone: UIColor = indigoColor
+      var buttonResend: UIColor = indigoColor
+      
+      if #available(iOS 11.0, *) {
+        toolbarColor = UIColor(named: "toolbarColor") ?? toolbarColor
+        textColor = UIColor(named: "textColor") ?? textColor
+        buttonDone = UIColor(named: "buttonDone") ?? buttonDone
+        buttonResend = UIColor(named: "buttonResend") ?? buttonResend
+      }
+      
       let toolbarCustomization = ToolbarCustomization()
       try toolbarCustomization.setHeaderText(HEADER_LABEL)
-      
-      let indigoColor = UIColor(red: 0.25, green: 0.32, blue: 0.71, alpha: 1.00)
-      let toolbarColor: UIColor = UIColor(named: "toolbarColor") ?? indigoColor
       toolbarCustomization.setBackgroundColor(toolbarColor)
       toolbarCustomization.setTextColor(.white)
       
-      let textColor: UIColor = UIColor(named: "textColor") ?? .white
       let textBoxCustomization = TextBoxCustomization()
       try textBoxCustomization.setBorderWidth(1)
       textBoxCustomization.setBorderColor(.gray)
       textBoxCustomization.setTextColor(textColor)
       
-      let buttonDone: UIColor = UIColor(named: "buttonDone") ?? indigoColor
       let buttonDoneCustomization = ButtonCustomization()
       buttonDoneCustomization.setBackgroundColor(buttonDone)
       buttonDoneCustomization.setTextColor(.white)
@@ -73,7 +82,6 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
       buttonCancelCustomization.setBackgroundColor(.clear)
       buttonCancelCustomization.setTextColor(.white)
       
-      let buttonResend: UIColor = UIColor(named: "buttonResend") ?? indigoColor
       let buttonResendCustomization = ButtonCustomization()
       buttonResendCustomization.setBackgroundColor(.clear)
       buttonResendCustomization.setTextColor(buttonResend)
@@ -92,9 +100,8 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
 
     private func _initSdkOnce(){
       do {
-        if (!self._isSdkInitialized){
           let p = ConfigParameters()
-          try! p.addParam(nil, ConfigParameters.Key.integrityReferenceValue.rawValue, "abc")
+          try p.addParam(nil, ConfigParameters.Key.integrityReferenceValue.rawValue, "abc")
           let config = p
           
           self._service = Ecom3DS2Service()
@@ -103,12 +110,7 @@ public class TransactionManager: NSObject, ChallengeStatusReceiver {
         
           try self._service!.initialize(configParameters: config, locale: locale, uiCustomization: _uiConfig)
           self._isSdkInitialized = true
-        }
-        else {
-          Log.w(object: self, message: "SDK has already been initialized")
-        }
-      }
-      catch _ {
+      } catch _ {
         Log.e(object: self, message: "Error initializing SDK")
       }
     }

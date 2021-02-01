@@ -22,6 +22,10 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
   let _transactionManager: TransactionManager = TransactionManager()
   let _reqResController = ReqResDetailsController()
   
+  func initialize(isUseCustomTheme: Bool) {
+    self.isUseCustomTheme = isUseCustomTheme
+  }
+
   func addLog(title: String, request: String, response: String, isReload: Bool = false) {
     ThreeDS2ViewController.logs.add(["title": title, "response": response, "request": request])
     
@@ -44,7 +48,10 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     CardKConfig.shared.mdOrder = "mdOrder";
     CardKConfig.shared.mrBinApiURL = "https://mrbin.io/bins/display";
     CardKConfig.shared.mrBinURL = "https://mrbin.io/bins/";
-    
+    CardKConfig.shared.pubKey = """
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAws0r6I8emCsURXfuQcU2c9mwUlOiDjuCZ/f+EdadA4vq/kYt3w6kC5TUW97Fm/HTikkHd0bt8wJvOzz3T0O4so+vBaC0xjE8JuU1eCd+zUX/plw1REVVii1RNh9gMWW1fRNu6KDNSZyfftY2BTcP1dbE1itpXMGUPW+TOk3U9WP4vf7pL/xIHxCsHzb0zgmwShm3D46w7dPW+HO3PEHakSWV9bInkchOvh/vJBiRw6iadAjtNJ4+EkgNjHwZJDuo/0bQV+r9jeOe+O1aXLYK/s1UjRs5T4uGeIzmdLUKnu4eTOQ16P6BHWAjyqPnXliYIKfi+FjZxyWEAlYUq+CRqQIDAQAB-----END PUBLIC KEY-----
+  """
     let theme = CardKConfig.shared.theme
     
     _transactionManager.delegateAddLog = self
@@ -234,9 +241,6 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
 
       guard let data = data else {
         self._transactionManager.close()
-        DispatchQueue.global(qos: .background).async {
-          self._notificationCenter.post(name: Notification.Name("ReloadTable"), object: nil)
-        }
         return
       }
                   
