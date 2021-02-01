@@ -51,9 +51,8 @@ class ViewController: UITableViewController {
   var sampleAppCardIO: SampleAppCardIO? = nil
   
   let publicKey = """
-  -----BEGIN PUBLIC KEY-----
-    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAws0r6I8emCsURXfuQcU2c9mwUlOiDjuCZ/f+EdadA4vq/kYt3w6kC5TUW97Fm/HTikkHd0bt8wJvOzz3T0O4so+vBaC0xjE8JuU1eCd+zUX/plw1REVVii1RNh9gMWW1fRNu6KDNSZyfftY2BTcP1dbE1itpXMGUPW+TOk3U9WP4vf7pL/xIHxCsHzb0zgmwShm3D46w7dPW+HO3PEHakSWV9bInkchOvh/vJBiRw6iadAjtNJ4+EkgNjHwZJDuo/0bQV+r9jeOe+O1aXLYK/s1UjRs5T4uGeIzmdLUKnu4eTOQ16P6BHWAjyqPnXliYIKfi+FjZxyWEAlYUq+CRqQIDAQAB
-  -----END PUBLIC KEY-----
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAws0r6I8emCsURXfuQcU2c9mwUlOiDjuCZ/f+EdadA4vq/kYt3w6kC5TUW97Fm/HTikkHd0bt8wJvOzz3T0O4so+vBaC0xjE8JuU1eCd+zUX/plw1REVVii1RNh9gMWW1fRNu6KDNSZyfftY2BTcP1dbE1itpXMGUPW+TOk3U9WP4vf7pL/xIHxCsHzb0zgmwShm3D46w7dPW+HO3PEHakSWV9bInkchOvh/vJBiRw6iadAjtNJ4+EkgNjHwZJDuo/0bQV+r9jeOe+O1aXLYK/s1UjRs5T4uGeIzmdLUKnu4eTOQ16P6BHWAjyqPnXliYIKfi+FjZxyWEAlYUq+CRqQIDAQAB-----END PUBLIC KEY-----
   """
   
   @objc func _close(sender:UIButton){
@@ -325,7 +324,9 @@ class ViewController: UITableViewController {
   
   func _open3DSViewCustom() {
     let controller = ThreeDS2ViewController(style: .grouped);
-    controller.isUseCustomTheme = true
+    
+    controller.initialize(isUseCustomTheme: true)
+  
     self.navigationController?.pushViewController(controller, animated: true)
   }
   
@@ -365,7 +366,7 @@ class ViewController: UITableViewController {
     
     Section(title: "ThreeDSSample", items: [
       SectionItem(title: "ThreeDS Sample with default theme", kind: .threeDS, isShowChevron: true, language: ""),
-      SectionItem(title: "ThreeDS Sample with custom theme", kind: .threeDS, isShowChevron: true, language: ""),
+      SectionItem(title: "ThreeDS Sample with custom theme", kind: .threeDSCustomColors, isShowChevron: true, language: ""),
     ]),
     
     
