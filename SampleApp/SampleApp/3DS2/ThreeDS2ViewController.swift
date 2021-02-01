@@ -132,6 +132,10 @@ class ThreeDS2ViewController: UITableViewController, AddLogDelegate {
     self.navigationController?.isToolbarHidden = false
   }
   
+  override func viewDidDisappear(_ animated: Bool) {
+    ThreeDS2ViewController.logs.removeAllObjects()
+  }
+  
   func _runSDK() {
     url = _textFieldBaseUrl.text ?? url
     
