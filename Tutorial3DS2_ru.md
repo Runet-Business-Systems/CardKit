@@ -2,7 +2,7 @@
 
 ## 3DS2
 
-Для интеграции 3DS2_SDK необхожимо:
+Для интеграции 3DS2_SDK необходимо:
 1. Скачать ThreeDSSDK.xcframework и добавить в проект;
 
 <div align="center">
