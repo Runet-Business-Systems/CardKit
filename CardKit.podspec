@@ -19,7 +19,7 @@ Pod::Spec.new do |spec|
 
   spec.exclude_files = "CardKit/Carthage/*.{h,m}", "CardKit/Carthage/**/**/*.lproj/*.strings"
 
-  spec.source_files = 'CardKit/CardKit/*.{h,m}', 'CardKit/CardKit/PaymentFlow/*.{h,m,swift}'
+  spec.source_files = 'CardKit/CardKit/*.{h,m}', 'CardKit/CardKit/PaymentFlow/*.{h,m,swift}', 'CardKit/ThreeDSSDK.xcframework'
 
   spec.vendored_frameworks = 'CardKit/ThreeDSSDK.xcframework'
 
