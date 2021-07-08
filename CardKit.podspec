@@ -21,9 +21,7 @@ Pod::Spec.new do |spec|
 
   spec.source_files = 'CardKit/CardKit/*.{h,m}', 'CardKit/CardKit/PaymentFlow/*.{h,m,swift}'
 
-  spec.vendored_frameworks = 'CardKit/ThreeDSSDK.xcframework'
-
-  spec.preserve_path = 'CardKit'
+  spec.vendored_frameworks = 'ThreeDSSDK.xcframework'
 
   spec.subspec 'CardKitCore' do |subspec|
     subspec.exclude_files = 'CardKit/CardKitCore/CardKitCore.{h,m}'
