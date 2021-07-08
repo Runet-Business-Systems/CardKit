@@ -7,28 +7,13 @@
 #
 
 Pod::Spec.new do |spec|
-  spec.name         = "CardKit"
+  spec.name         = "ThreeDSSDK"
   spec.version      = "0.0.17"
   spec.summary      = "CardKit SDK."
   spec.homepage     = "https://github.com/Runet-Business-Systems/CardKit"
   spec.license      = "MIT"
   spec.author       = { "RBS" => "rbssupport@bpc.ru" }
   spec.source       = { :git => "https://github.com/Runet-Business-Systems/CardKit.git" }
-
-  spec.resources =  "CardKit/banks-info", "CardKit/**/*.lproj/*.strings", "CardKit/CardKit/Images.xcassets"
-
-  spec.exclude_files = "CardKit/Carthage/*.{h,m}", "CardKit/Carthage/**/**/*.lproj/*.strings"
-
-  spec.source_files = 'CardKit/CardKit/*.{h,m}', 'CardKit/CardKit/PaymentFlow/*.{h,m,swift}'
-
-  spec.preserve_path = 'CardKit'
-
-  spec.subspec 'CardKitCore' do |subspec|
-    subspec.exclude_files = 'CardKit/CardKitCore/CardKitCore.{h,m}'
-    subspec.source_files = 'CardKit/CardKitCore/*.{h,m}'
-  end
-
-  spec.dependency 'ThreeDSSDK'
-  spec.static_framework = true
+  spec.vendored_frameworks = 'CardKit/ThreeDSSDK.xcframework'
   spec.ios.deployment_target  = '10.0'
 end
