@@ -21,14 +21,18 @@ Pod::Spec.new do |spec|
 
   spec.source_files = 'CardKit/CardKit/*.{h,m}', 'CardKit/CardKit/PaymentFlow/*.{h,m,swift}'
 
-  spec.vendored_frameworks = 'CardKit/ThreeDSSDK.xcframework'
-
   spec.preserve_path = 'CardKit'
+
+  spec.subspec 'ThreeDSSDK' do |subspec|
+    subspec.vendored_frameworks = 'CardKit/ThreeDSSDK.xcframework'
+  end
 
   spec.subspec 'CardKitCore' do |subspec|
     subspec.exclude_files = 'CardKit/CardKitCore/CardKitCore.{h,m}'
     subspec.source_files = 'CardKit/CardKitCore/*.{h,m}'
   end
+
+  spec.dependency = 'CardKit/ThreeDSSDK'
 
   spec.ios.deployment_target  = '10.0'
 end
