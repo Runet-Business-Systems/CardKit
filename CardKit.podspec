@@ -28,7 +28,5 @@ Pod::Spec.new do |spec|
     subspec.source_files = 'CardKit/CardKitCore/*.{h,m}'
   end
 
-  spec.dependency 'ThreeDSSDK'
-  spec.static_framework = true
   spec.ios.deployment_target  = '10.0'
 end
